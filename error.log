@@ -400,3 +400,51 @@ To https://github.com/rithikasilva/rithikasilva.github.io
    9a60a46..cd3a6fb  main -> main
 
 
+----------
+
+Fri Jul 30 2021 12:20:04 GMT-0400 (Eastern Daylight Time)
+
+warning: LF will be replaced by CRLF in assets/bootstrap/css/bootstrap.min.css.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/bootstrap/js/bootstrap.min.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/css/Animated-CSS-Waves-Background-SVG.css.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/css/Footer-Basic.css.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/css/Header-Blue.css.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/css/Navigation-with-Search.css.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/css/Simple-Slider.css.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/css/styles.css.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/fonts/ionicons.min.css.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/fonts/ionicons.svg.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/js/--mp---Testimonials-Slider.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/js/Simple-Slider.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in assets/js/bs-init.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in index.html.
+The file will have its original line endings in your working directory
+
+
+----------
+
+Fri Jul 30 2021 12:20:06 GMT-0400 (Eastern Daylight Time)
+
+To https://github.com/rithikasilva/rithikasilva.github.io
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/rithikasilva/rithikasilva.github.io'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+
