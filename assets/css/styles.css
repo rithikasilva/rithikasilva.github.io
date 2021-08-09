@@ -3,7 +3,8 @@
 }
 
 .cardimg {
-  width: 20px;
+  width: 100%;
+  max-width: 100px;
   height: auto;
 }
 
