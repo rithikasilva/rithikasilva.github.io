@@ -2,6 +2,12 @@
   background-color: rgb(134,55,123)!important;
 }
 
+.cardimg img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
 p {
   font-family: 'Roboto Mono';
 }
