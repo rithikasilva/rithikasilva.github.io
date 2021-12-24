@@ -20,6 +20,7 @@
                 <p>I am a first year Computer Science student at the University of Waterloo who has a passion for the growth mindset.</p>
                 <a href="https://rithikasilva.github.io/rs-blog/" class="button">Blog</a>
                 <a href="#" class="button">Resume</a>
+                <a href="#" class="button" onclick="clickHandler()">Mobile Gryo Enable</a>
                 <div class="socialicons">
                     <a href="https://github.com/rithikasilva"><img src="images/Github.jpg" alt="Github Icon" class="iconimg"></a>
                     <a href="https://twitter.com/RithikaSilva"><img src="images/Twitter.jpg" alt="Twitter Icon" class="iconimg"></a>
@@ -40,6 +41,26 @@
                 gyroscopeMinAngleY: -35,
                 gyroscopeMaxAngleY: 35,
             });
+        </script>
+        <script>
+            function clickHandler() {
+                try {
+                    //try block bc Safari
+                    if (typeof DeviceMotionEvent.requestPermission === "function") {
+                        DeviceMotionEvent.requestPermission()
+                            .then((permissionState) => {
+                                if (permissionState === "granted") {
+                                    window.addEventListener("devicemotion", (e) => {
+                                        console.log(e);
+                                    });
+                                }
+                            })
+                            .catch(console.error);
+                    } else {
+                        // handle regular non iOS 13+ devices
+                    }
+                } catch (e) {}
+            }
         </script>
 </body>
 
