@@ -57,8 +57,8 @@ body::after {
 
 .container .card {
     position: relative;
-    width: 560px;
-    height: 800px;
+    width: 28em;
+    height: 40em;
     margin: 30px;
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
@@ -124,6 +124,11 @@ body::after {
 .iconimg {
     width: 50px;
     height: 50px;
+    border-radius: 3em;
+}
+
+.iconimg:hover {
+    background-color: #bde0fe;
 }
 
 .socialicons {
