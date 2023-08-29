@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 50em;
+    min-height: 50vh;
     background: #E7E5E7;
     margin: 0;
     height: 100%;
@@ -19,37 +19,40 @@ body {
 }
 
 .content {
-    padding: 5em;
     text-align: center;
     align-items: center;
+    vertical-align: middle;
+    padding-top: 30vh;
 }
 
 .content p {
-    font-size: 1em;
+    font-size: 2vh;
     color: rgb(0, 0, 0);
-    font-weight: 300;
-    margin: 0.8em;
+    font-weight: 1vh;
+    margin: 0.8vh;
 }
 
 
 h1 {
-    margin: 0.4em;
+    font-size: 3vh;
+    margin: 0.4vh;
 }
 h3 {
-    margin: 0.4em;
+    font-size: 1.5vh;
+    margin: 0.4vh;
 }
 
 .content .button {
-    width: 8em;
+    width: 13vh;
     text-decoration: none;
     background-color: #cdb4db;
-    border-radius: 10em;
+    border-radius: 10vh;
     color: white;
-    padding: 1em 1em;
+    padding: 1.5vh 1.5vh;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1em;
+    font-size: 2vh;
 }
 
 .content .button:hover {
@@ -57,20 +60,20 @@ h3 {
 }
 
 .myimg {
-    width: 8em;
-    height: 8em;
+    width: 10vh;
+    height: 10vh;
     object-fit: cover;
     border-radius: 50%;
 }
 
 .iconimg {
-    width: 3em;
-    height: 3em;
-    border-radius: 3em;
+    width: 3vh;
+    height: 3vh;
+    border-radius: 3vh;
 }
 
 .socialicons {
-    margin: 1em;
+    margin: 1vh;
 }
 
 
@@ -87,6 +90,3 @@ h3 {
     }
   }
   
-body {
-
-}
