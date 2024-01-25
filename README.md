@@ -1,4 +1,4 @@
-It's not for you, its for me :)
+It's not for you, it's for me :)
 
 
 Sources of Inspiration/Borrowing:
