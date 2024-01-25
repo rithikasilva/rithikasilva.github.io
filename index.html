@@ -9,27 +9,85 @@
 </head>
 
 <body>
-    <div class="content">
-        <img src="images/Profile New.jpg" class="myimg" />
-        <h1>
-            Hi! I'm Rithika.
-        </h1>
-        <h3>
-            Computer Science @
-            <a href="https://uwaterloo.ca/", style="text-decoration: none; color:#aa67d1">UWaterloo</a>
-        </h3>
-        <p id="test">A student who has a passion for the growth mindset.</p>
-        <a href="https://rithikasilva.github.io/b.log-/" class="button">Blog</a>
-        <a href="Rithika Silva.pdf" class="button" download>Resume</a>
-        <a href="https://github.com/rithikasilva/project-list/blob/main/README.md" class="button">Projects</a>
-        <a href="gallery/gallery.html" class="button">Gallery</a>
-
-
+    <!-- 
         <div class="socialicons">
             <a href="https://github.com/rithikasilva"><img src="images/Github.jpg" alt="Github Icon" class="iconimg"></a>
             <a href="https://twitter.com/RithikaSilva"><img src="images/Twitter.jpg" alt="Twitter Icon" class="iconimg"></a>
             <a href="https://ca.linkedin.com/in/rithika-silva-861b0818a"><img src="images/LinkedIn.jpg" alt="LinkedIn Icon" class="iconimg"></a>
         </div>
+    </div> -->
+    <div id="top-row" style="font-size: 9px;">
+        <a href="https://rithikasilva.github.io/b.log-/" class="button">Blog</a>
+        <a href="Rithika Silva.pdf" class="button" download>Resume</a>
+        <a href="https://github.com/rithikasilva/project-list/blob/main/README.md" class="button">Projects</a>
+        <a href="gallery/gallery.html" class="button">Gallery</a>
+        <table id="player" style="
+            color: #fff;
+            filter: opacity(0.8);
+            height: 100px;
+            width: 350px;
+        ">
+        <tr height="100%">
+            <td width="20%" align="center">
+            <a id="player-link" href="">
+                <img id="player-album-art" style="margin: 1em; max-height: 8em; border-radius: 1.2em" />
+            </a>
+            </td>
+
+            <td width="80%">
+            <div style="margin: 1em 1em 1em 0">
+                <div id="player-song" style="font-size: 1.4em"></div>
+                <div id="player-artist" style="font-size: 1.1em; margin-bottom: 1em"></div>
+                <div id="player-status" style="margin: 2em 0 1em 0"></div>
+                <div id="player-time" style="position: relative; float: right; top: -2em; font-weight: bold"></div>
+                <div id="player-progress-back" style="border: 0.15em solid #eee; height: 1em; border-radius: 10px">
+                <div id="player-progress" style="
+                    background-color: #eee;
+                    border: 0.1em solid transparent;
+                    height: 1em;
+                    border-radius: 10px;
+                    transition: width 0.2s;
+                    "></div>
+                </div>
+            </div>
+            </td>
+        
+        </tr>
+        <div id="player-background" class="background" style="
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -10;
+            background-position: center center;
+            background-size: 0%;
+            filter: blur(2em);
+            position: absolute;
+            transition: background-image 0.5s ease-in;
+            "></div>
+        </table>
+        <script src="spotify.js"></script>
+    </div>
+    <div id="wwwwwh">
+        <h1 style="margin-bottom: 0.5em;">Hi! I'm Rithika.</h1>
+        <p>
+            I am a student studying CS @ <a id="link" href="https://uwaterloo.ca/">UWaterloo</a>
+            with a passion for the growth mindset. <br><br>
+            If you have some time, give me a follow on <a id="link" href="https://github.com/rithikasilva">GitHub</a>,
+            <a id="link" href="https://twitter.com/RithikaSilva">Twitter</a>, and connect with me on
+            <a id="link" href="https://ca.linkedin.com/in/rithika-silva-861b0818a">LinkedIn</a>.
+        </p>
+    </div>
+    <div id="colors">
+        <a style="color: #f8f9fa;">This</a>
+        <a style="color: #e9ecef;">is</a>
+        <a style="color: #dee2e6;">my</a>
+        <a style="color: #ced4da;">color</a>
+        <a style="color: #adb5bd;">pallette</a>
+        <a style="color: #6c757d;">for</a>
+        <a style="color: #495057;">this</a>
+        <a style="color: #343a40;">site</a>
+        <a style="color: #212529;">:)</a>
     </div>
 </body>
 </html>
