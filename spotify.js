@@ -10,7 +10,7 @@ fetch(`${serviceHost}/get-now-playing`)
     if (data.hasOwnProperty("ERROR") || (data.hasOwnProperty("currently_playing_type") && data["currently_playing_type"] == "episode")) {
         document.getElementById("player-song").innerHTML = `Rithika ...`;
         document.getElementById("player-artist").innerHTML = `is not listening to anything :P`;
-        document.getElementById("player-album-art").setAttribute("src", "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/spotify-style-illustration-album-art-2020-design-template-ff72ffd1b198e4a94ee8c58cceb1da19_screen.jpg?ts=1600257159");
+        document.getElementById("player-album-art").setAttribute("src", "https://horizondatasys.com/wp-content/uploads/2018/01/Dark-Gray-Square.png");
     } else {
         songData = data;
         document.getElementById("player-song").innerHTML = `Listening to ` + data.item.name;
