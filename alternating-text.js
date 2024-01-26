@@ -20,6 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 500); // Wait for 500 milliseconds before updating text
     }
 
-    setInterval(updateText, 4800); // Change text every 2500 milliseconds (2.5 seconds)
+    setInterval(updateText, 5000); // Change text every 2500 milliseconds (2.5 seconds)
     updateText(); // Call updateText once to display the first text immediately
   });
