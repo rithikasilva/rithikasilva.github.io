@@ -8,12 +8,14 @@ fetch(`${serviceHost}/get-now-playing`)
     .then((response) => response.json())
     .then((data) => {
     if (data.hasOwnProperty("ERROR") || (data.hasOwnProperty("currently_playing_type") && data["currently_playing_type"] == "episode")) {
-        document.getElementById("player-song").innerHTML = `Rithika ...`;
-        document.getElementById("player-artist").innerHTML = `is not listening to anything :P`;
-        document.getElementById("player-album-art").setAttribute("src", "https://horizondatasys.com/wp-content/uploads/2018/01/Dark-Gray-Square.png");
+        return
     } else {
         songData = data;
-        document.getElementById("player-song").innerHTML = `Listening to ` + data.item.name;
+        if (data.item.name.length > 19) {
+            document.getElementById("player-song").innerHTML = `Listening to ` + data.item.name.substring(0, 16) + `...`;
+        } else {
+            document.getElementById("player-song").innerHTML = `Listening to ` + data.item.name;
+        }
         document.getElementById("player-artist").innerHTML = `by ` + data.item.artists[0].name;
         document.getElementById("player-link").setAttribute("href", data.item.external_urls.spotify); 
         document.getElementById("player-album-art").setAttribute("src", data.item.album.images[1].url);

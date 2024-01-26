@@ -1,3 +1,8 @@
+:root {
+  /* --red-border: 1px solid red; */
+}
+
+
 @import url('https://fonts.cdnfonts.com/css/satoshi?styles=135002');
 * {
     /* font-family: Helvetica, Arial;  */
@@ -19,12 +24,11 @@ body {
 }
 
 
-
 #top-row {
     align-items: center;
     display: flex;
-    gap: 1.5em;
-    /* border: 1px solid red; */
+    gap: 1.8em;
+    border: var(--red-border);
     justify-content: center;
     min-width: 80em;
 }
@@ -32,14 +36,27 @@ body {
 #wwwwwh {
     color: #dee2e6;
     font-weight: 10;
-    /* border: 1px solid red; */
+    border: var(--red-border);
     padding: 2em;
 }
+
+#alternatingText {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  text-shadow: 0 0 2px #6c757d, 0 0 2px #6c757d, 0 0 2px #6c757d; 
+  /* font-style: italic; */
+  font-weight: bold;
+}
+
+#introduction {
+  text-shadow: 0 0 3px #6c757d, 0 0 3px #6c757d, 0 0 3px #6c757d;
+}
+
 
 #colors {
     color: #dee2e6;
     font-weight: 10;
-    /* border: 1px solid red; */
+    border: var(--red-border);
     padding: 2em;
 }
 
@@ -50,6 +67,7 @@ body {
 }
 #link:hover {
     color: #f8f9fa;
+    text-shadow: 0 0 5px #6c757d, 0 0 5px #6c757d, 0 0 5px #6c757d; 
 }
 
 /* CSS */
@@ -63,11 +81,12 @@ body {
   cursor: pointer;
   display: inline-block;
   font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 600;
   line-height: normal;
   margin: 0;
   min-height: 60px;
+  line-height: 40px;
   min-width: 0;
   outline: none;
   padding: 16px 15px;
@@ -90,6 +109,10 @@ body {
   background-color: #343a40;
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
+
+  -webkit-box-shadow:0px 0px 45px 0px rgba(248,249,250,0.08);
+  -moz-box-shadow: 0px 0px 45px 0px rgba(248,249,250,0.08);
+  box-shadow: 0px 0px 45px 0px rgba(248,249,250,0.08);
 }
 
 .button:active {
