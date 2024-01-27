@@ -3,23 +3,23 @@ document.addEventListener('DOMContentLoaded', function() {
     'currently learning Rust.', 
     'lacking sleep :(.',
     `debugging my life, one line at a time.`,
-    `exploring the digital frontier.`,
     `on a mission to pet a cat from every country.`,
-    `looking for more things to add here (._.).`,
-    `hoping you stick around a while :).`];
+    `exploring the digital frontier.`,
+    `looking for more things to add here (._.).`];
     let currentIndex = 0;
+    const longest = textArray.reduce((max, str) => Math.max(max, str.length), 0);
 
     const textElement = document.getElementById('alternatingText');
 
     function updateText() {
       textElement.style.opacity = 0;
       setTimeout(function () {
-        textElement.innerText = textArray[currentIndex];
+        textElement.innerText = textArray[currentIndex].padStart(longest);
         textElement.style.opacity = 1;
         currentIndex = (currentIndex + 1) % textArray.length;
-      }, 500); // Wait for 500 milliseconds before updating text
+      }, 500); 
     }
 
-    setInterval(updateText, 5000); // Change text every 2500 milliseconds (2.5 seconds)
-    updateText(); // Call updateText once to display the first text immediately
+    setInterval(updateText, 5000); 
+    updateText(); 
   });

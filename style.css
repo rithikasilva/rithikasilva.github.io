@@ -9,14 +9,13 @@
   --seven: #495057;
   --eight: #343a40;
   --nine: #212529;
-  --ten: #131415;
-
+  --ten: #0c0b0c;
+  --eleven: #131415;
 }
 
 
 @import url('https://fonts.cdnfonts.com/css/satoshi?styles=135002');
 * {
-    /* font-family: Helvetica, Arial;  */
     font-family: 'Satoshi', sans-serif;
     margin: 0;
     padding: 0;
@@ -24,14 +23,11 @@
 }
 
 body {
-    background: var(--ten);
+    background: var(--eleven);
     margin-top: 1em;
     width: 50em;
     margin-left: auto;
     margin-right: auto;
-    /* display: flex; 
-    align-items: center;
-    justify-content: center; */
 }
 
 
@@ -54,30 +50,23 @@ body {
 #alternatingText {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
-  text-shadow: 0 0 2px #6c757d, 0 0 2px #6c757d, 0 0 2px #6c757d; 
+  text-shadow: 0 0 2px var(--six), 0 0 2px var(--six), 0 0 2px var(--six); 
   /* font-style: italic; */
   font-weight: bold;
 }
 
 #introduction {
-  text-shadow: 0 0 3px #6c757d, 0 0 3px #6c757d, 0 0 3px #6c757d;
+  text-shadow: 0 0 3px var(--six), 0 0 2px var(--six), 0 0 2px var(--six); 
 }
 
 
-#colors {
-    color: var(--three);
-    font-weight: 10;
-    border: var(--red-border);
-    padding: 2em;
-}
-
-#link {
+.link {
     text-decoration: none; 
-    color:#6c757d
+    color: var(--six);
 }
-#link:hover {
+.link:hover {
     color: var(--one);
-    text-shadow: 0 0 5px #6c757d, 0 0 5px #6c757d, 0 0 5px #6c757d; 
+    text-shadow: 0 0 5px  var(--six), 0 0 5px  var(--six), 0 0 5px  var(--six); 
 }
 
 
@@ -96,7 +85,7 @@ body {
   line-height: normal;
   margin: 0;
   min-height: 60px;
-  line-height: 40px;
+  line-height: 39px;
   min-width: 0;
   outline: none;
   padding: 16px 15px;
@@ -119,29 +108,14 @@ body {
   background-color: #343a40;
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
-
   -webkit-box-shadow:0px 0px 45px 0px rgba(248,249,250,0.08);
   -moz-box-shadow: 0px 0px 45px 0px rgba(248,249,250,0.08);
-  box-shadow: 0px 0px 45px 0px rgba(248,249,250,0.08);
 }
 
 .button:active {
   box-shadow: none;
   transform: translateY(0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #cards {
@@ -152,85 +126,10 @@ body {
   border: var(--red-border);
 }
 
-.card-text {
-  color: var(--two);
-  text-align: center;
-  vertical-align: middle;
-  line-height: 14em;
-  font-size: 1em;
-}
-
-.card {
-  position: relative;
-  width: 200px;
-  height: 250px;
-  border-radius: 14px;
-  z-index: 1111;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
 
-.card:hover {
-  color: var(--one);
-  background-color: #343a40;
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  transform: translateY(-2px);
 
-  -webkit-box-shadow:0px 0px 45px 0px rgba(248,249,250,0.08);
-  -moz-box-shadow: 0px 0px 45px 0px rgba(248,249,250,0.08);
-  box-shadow: 0px 0px 45px 0px rgba(248,249,250,0.08);
-}
 
-.bg {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 190px;
-  height: 240px;
-  z-index: 2;
-  background: var(--ten);
-  backdrop-filter: blur(24px);
-  border-radius: 10px;
-  overflow: hidden;
-  outline: 2px solid white;
-}
 
-.blob {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background-color: var(--four);
-  opacity: 1;
-  filter: blur(12px);
-  animation: blob-bounce 5s infinite ease;
-}
 
-@keyframes blob-bounce {
-  0% {
-    transform: translate(-100%, -100%) translate3d(0, 0, 0);
-  }
 
-  25% {
-    transform: translate(-100%, -100%) translate3d(100%, 0, 0);
-  }
-
-  50% {
-    transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
-  }
-
-  75% {
-    transform: translate(-100%, -100%) translate3d(0, 100%, 0);
-  }
-
-  100% {
-    transform: translate(-100%, -100%) translate3d(0, 0, 0);
-  }
-}
