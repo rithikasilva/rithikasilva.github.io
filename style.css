@@ -105,7 +105,7 @@ body {
 
 .button:hover {
   color: var(--one);
-  background-color: #343a40;
+  background-color: var(--nine);
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
   -webkit-box-shadow:0px 0px 45px 0px rgba(248,249,250,0.08);
