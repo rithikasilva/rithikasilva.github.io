@@ -5,33 +5,87 @@
     <meta charset="utf-8">
     <title>Rithika Silva</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="images\Profile New.jpg">
 </head>
 
 <body>
-    <div class="content">
-        <img src="images/Profile New.jpg" class="myimg" />
-        <h1>
-            Hi! I'm Rithika.
-        </h1>
-        <h3>
-            Computer Science @
-            <a href="https://uwaterloo.ca/", style="text-decoration: none; color:#aa67d1">UWaterloo</a>
-        </h3>
-        <p id="test">A student who has a passion for the growth mindset.</p>
-        <a href="https://rithikasilva.github.io/b.log-/" class="button">Blog</a>
-        <a href="Rithika Silva.pdf" class="button" download>Resume</a>
-        <a href="https://github.com/rithikasilva/project-list/blob/main/README.md" class="button">Projects</a>
-        <a href="gallery/gallery.html" class="button">Gallery</a>
+    <div id="top-row" style="font-size: 9px;">
+        <a href="https://rithikasilva.github.io/b.log-/" class="clickable">Blog</a>
+        <a href="Rithika Silva.pdf" class="clickable" download>Resume</a>
+        <a href="https://github.com/rithikasilva/project-list/blob/main/README.md" class="clickable">Projects</a>
+        <a href="gallery/gallery.html" class="clickable">Gallery</a>
+        <table id="player" style="color: #fff; filter: opacity(0.85); height: 100px; width: 300px;">
+        <tr height="100%">
+            <td width="20%" align="center">
+            <a id="player-link" href="">
+                <img id="player-album-art" src="https://horizondatasys.com/wp-content/uploads/2018/01/Dark-Gray-Square.png" style="margin: 1em; max-height: 8em; border-radius: 1em" />
+            </a>
+            </td>
 
-
-        <div class="socialicons">
-            <a href="https://github.com/rithikasilva"><img src="images/Github.jpg" alt="Github Icon" class="iconimg"></a>
-            <a href="https://twitter.com/RithikaSilva"><img src="images/Twitter.jpg" alt="Twitter Icon" class="iconimg"></a>
-            <a href="https://ca.linkedin.com/in/rithika-silva-861b0818a"><img src="images/LinkedIn.jpg" alt="LinkedIn Icon" class="iconimg"></a>
-        </div>
+            <td width="80%">
+            <div style="margin: 1em 1em 1em 0">
+                <div id="player-song" style="font-size: 1.4em; font-weight: bold;">Listening to ...</div>
+                <div id="player-artist" style="font-size: 1.12em; margin-bottom: 1em; letter-spacing: 0.1em; font-weight: bold;">absolutely nothing :P</div>
+                <div id="player-status" style="margin: 2em 0 1em 0"></div>
+                <div id="player-time" style="position: relative; float: right; top: -2em; font-weight: bold"></div>
+                <div id="player-progress-back" style="border: 0.15em solid #eee; height: 1em; border-radius: 10px">
+                <div id="player-progress" style="
+                    background-color: #eee;
+                    border: 0.1em solid transparent;
+                    height: 1em;
+                    border-radius: 10px;
+                    transition: width 0.2s;
+                    "></div>
+                </div>
+            </div>
+            </td>
+        
+        </tr>
+        <div id="player-background" class="background" style="
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -10;
+            background-position: center center;
+            background-size: 0%;
+            filter: blur(2em);
+            position: absolute;
+            transition: background-image 0.5s ease-in;
+            "></div>
+        </table>
+        <script src="spotify.js"></script>
     </div>
+    <div id="wwwwwh">
+        <h1 id="introduction" style="margin-bottom: 0.5em;">Hi! I'm Rithika.</h1>
+        <p>
+            I am a student studying CS @ <a class="link" href="https://uwaterloo.ca/">UWaterloo</a>
+            with a passion for the growth mindset. I enjoy learning anything I can get
+            my hands on, but have a particular interest in: 
+            <a class="link" href="https://en.wikipedia.org/wiki/Operating_system">operating systems</a>, 
+            <a class="link" href="https://en.wikipedia.org/wiki/Compiler">compilers</a>, 
+            <a class="link" href="https://en.wikipedia.org/wiki/Computer_security">cybersecurity</a>
+            and <a class="link" href="https://en.wikipedia.org/wiki/Combinatorics">combinatorics</a>.
+                I am <a id="alternatingText">~</a><script src="alternating-text.js"></script>
+            <br>
+            <br> 
+            <p>
+            Follow me on <a class="link" href="https://github.com/rithikasilva">GitHub</a>,
+            <a class="link" href="https://twitter.com/RithikaSilva">Twitter</a>, and connect with me on
+            <a class="link" href="https://ca.linkedin.com/in/rithika-silva-861b0818a">LinkedIn</a>.
+            </p>
+        </p><br>
+    </div>  
+    <div id="say-hi-form">
+        <form method="post" action="https://send.pageclip.co/tRArR4fhX60vYm6kpHS3sPEaApmoAZpV/contact-form">
+            <input class="outlined-box" type="text" name="content" placeholder="Have something to share? Let me know :)"/>
+            <input class="clickable" type="submit" style="width: 6em;" value="Send">
+        </form>
+    </div>
+    <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
 </body>
 </html>
+
+
+
 
 

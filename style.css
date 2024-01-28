@@ -1,92 +1,149 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+:root {
+  /* --red-border: 1px solid red; */
+  --one: #f8f9fa;
+  --two: #e9ecef;
+  --three: #dee2e6;
+  --four: #ced4da;
+  --five: #adb5bd;
+  --six: #6c757d;
+  --seven: #495057;
+  --eight: #343a40;
+  --nine: #212529;
+  --ten: #0c0b0c;
+  --eleven: #131415;
+}
+
+
+@import url('https://fonts.cdnfonts.com/css/satoshi?styles=135002');
 * {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Satoshi', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
+    background: var(--eleven);
+    margin-top: 1em;
+    width: 50em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#top-row {
+    align-items: center;
     display: flex;
+    gap: 1.3em;
+    border: var(--red-border);
     justify-content: center;
-    align-items: center;
-    min-height: 50vh;
-    background: #E7E5E7;
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
-    animation: 0.5s fadeInUp;
+    min-width: 80em;
 }
 
-.content {
-    text-align: center;
-    align-items: center;
-    vertical-align: middle;
-    padding-top: 30vh;
+#wwwwwh {
+    color: var(--three);
+    font-weight: 10;
+    border: var(--red-border);
+    padding: 2em;
 }
 
-.content p {
-    font-size: 2vh;
-    color: rgb(0, 0, 0);
-    font-weight: 1vh;
-    margin: 0.8vh;
+#alternatingText {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  text-shadow: 0 0 2px var(--six), 0 0 2px var(--six), 0 0 2px var(--six); 
+  font-weight: bold;
 }
 
-
-h1 {
-    font-size: 3vh;
-    margin: 0.4vh;
-}
-h3 {
-    font-size: 1.5vh;
-    margin: 0.4vh;
-}
-
-.content .button {
-    width: 13vh;
-    text-decoration: none;
-    background-color: #cdb4db;
-    border-radius: 10vh;
-    color: white;
-    padding: 1.5vh 1.5vh;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 2vh;
-}
-
-.content .button:hover {
-    background-color: #c97df5;
-}
-
-.myimg {
-    width: 10vh;
-    height: 10vh;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.iconimg {
-    width: 3vh;
-    height: 3vh;
-    border-radius: 3vh;
-}
-
-.socialicons {
-    margin: 1vh;
+#introduction {
+  text-shadow: 0 0 3px var(--six), 0 0 2px var(--six), 0 0 2px var(--six); 
 }
 
 
+.link {
+    text-decoration: none; 
+    color: var(--six);
+}
+.link:hover {
+    color: var(--one);
+    text-shadow: 0 0 5px  var(--six), 0 0 5px  var(--six), 0 0 5px  var(--six); 
+}
+
+.clickable {
+  appearance: none;
+  background-color: transparent;
+  border: 3px solid var(--three);
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #dee2e6;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  line-height: 39px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 15px;
+  text-align: center;
+  text-decoration: none;
+  /* transition: all 300ms cubic-bezier(.23, 1, 0.32, 1); */
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 10;
+  will-change: transform;
+}
+
+.clickable:disabled {
+  pointer-events: none;
+}
+
+.clickable:hover {
+  color: var(--one);
+  background-color: var(--nine);
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+  -webkit-box-shadow:0px 0px 45px 0px rgba(248,249,250,0.08);
+  -moz-box-shadow: 0px 0px 45px 0px rgba(248,249,250,0.08);
+}
+
+.clickable:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
 
 
-@keyframes fadeInUp {
-    0% {
-      transform: translateY(10%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0%);
-      opacity: 1;
-    }
-  }
-  
+.outlined-box {
+  appearance: none;
+  background-color: transparent;
+  border: 3px solid var(--three);
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #dee2e6;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  line-height: 39px;
+  min-width: 0;
+  padding: 16px 15px;
+  text-align: center;
+  width: 40em;
+  margin-right: 0.6em;
+}
+
+#say-hi-form {
+  padding-left: 2em;
+  display: flex;
+  gap: 4em;
+  border: var(--red-border);
+}
+
+p { 
+  line-height: 1.5em;
+}
