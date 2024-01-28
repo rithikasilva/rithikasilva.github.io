@@ -51,7 +51,6 @@ body {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
   text-shadow: 0 0 2px var(--six), 0 0 2px var(--six), 0 0 2px var(--six); 
-  /* font-style: italic; */
   font-weight: bold;
 }
 
@@ -69,8 +68,7 @@ body {
     text-shadow: 0 0 5px  var(--six), 0 0 5px  var(--six), 0 0 5px  var(--six); 
 }
 
-
-.button {
+.clickable {
   appearance: none;
   background-color: transparent;
   border: 3px solid var(--three);
@@ -98,11 +96,11 @@ body {
   will-change: transform;
 }
 
-.button:disabled {
+.clickable:disabled {
   pointer-events: none;
 }
 
-.button:hover {
+.clickable:hover {
   color: var(--one);
   background-color: var(--nine);
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
@@ -111,25 +109,13 @@ body {
   -moz-box-shadow: 0px 0px 45px 0px rgba(248,249,250,0.08);
 }
 
-.button:active {
+.clickable:active {
   box-shadow: none;
   transform: translateY(0);
 }
 
 
-#form {
-  padding-left: 2em;
-  display: flex;
-  gap: 4em;
-  border: var(--red-border);
-}
-
-p { 
-  line-height: 1.5em;
-}
-
-
-#form-input {
+.outlined-box {
   appearance: none;
   background-color: transparent;
   border: 3px solid var(--three);
@@ -151,48 +137,13 @@ p {
   margin-right: 0.6em;
 }
 
-#form-button {
-  appearance: none;
-  background-color: transparent;
-  border: 3px solid var(--three);
-  border-radius: 15px;
-  box-sizing: border-box;
-  color: #dee2e6;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 19px;
-  font-weight: 600;
-  line-height: normal;
-  margin: 0;
-  min-height: 60px;
-  line-height: 39px;
-  min-width: 0;
-  padding: 16px 15px;
-  text-align: center;
-  width: 6em;
-}
-
-#form-button:hover {
-  color: var(--one);
-  background-color: var(--nine);
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  transform: translateY(-2px);
-  -webkit-box-shadow:0px 0px 45px 0px rgba(248,249,250,0.08);
-  -moz-box-shadow: 0px 0px 45px 0px rgba(248,249,250,0.08);
-}
-
-#form-button:active {
-  box-shadow: none;
-  background-color: var(--three);
-  color: var(--eight);
-}
-
-
-
-
-#say-hi {
-  color: var(--three);
-  font-weight: 10;
+#say-hi-form {
+  padding-left: 2em;
+  display: flex;
+  gap: 4em;
   border: var(--red-border);
-  padding: 2em;
+}
+
+p { 
+  line-height: 1.5em;
 }
