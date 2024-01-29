@@ -147,3 +147,33 @@ body {
 p { 
   line-height: 1.5em;
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  left: 140%;
+  background-color: var(--nine);
+  color: var(--six);
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 1;
+  width: auto;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.tooltip:hover .tooltiptext {
+  opacity: 1;
+}
