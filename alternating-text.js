@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateText() {
       textElement.style.opacity = 0;
       setTimeout(function () {
-        textElement.innerText = textArray[currentIndex].padStart(longest);
+        textElement.innerHTML = textArray[currentIndex].padEnd(longest);
         textElement.style.opacity = 1;
         currentIndex = (currentIndex + 1) % textArray.length;
       }, 500); 
