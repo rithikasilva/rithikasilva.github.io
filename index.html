@@ -5,6 +5,19 @@
     <meta charset="utf-8">
     <title>Rithika Silva</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+
+        function showAlertIfMobile() {
+            if (isMobileDevice()) {
+                alert('I\'m lazy, so this site is best view on a larger screen. Proceed at your own discretion.');
+            }
+        }
+
+        window.onload = showAlertIfMobile;
+    </script>
 </head>
 
 <body>
