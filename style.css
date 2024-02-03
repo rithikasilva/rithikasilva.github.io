@@ -11,6 +11,7 @@
   --nine: #212529;
   --ten: #0c0b0c;
   --eleven: #131415;
+  --cards-display: none; /* flex or none */
 }
 
 
@@ -30,6 +31,9 @@ body {
     margin-right: auto;
 }
 
+p { 
+  line-height: 1.5em;
+}
 
 #top-row {
     align-items: center;
@@ -44,7 +48,10 @@ body {
     color: var(--three);
     font-weight: 10;
     border: var(--red-border);
-    padding: 2em;
+    padding-left: 2em;
+    padding-top: 2em;
+    padding-right: 2em;
+    padding-bottom: 1em;
 }
 
 #alternatingText {
@@ -53,11 +60,6 @@ body {
   text-shadow: 0 0 2px var(--six), 0 0 2px var(--six), 0 0 2px var(--six); 
   font-weight: bold;
 }
-
-#introduction {
-  text-shadow: 0 0 3px var(--six), 0 0 2px var(--six), 0 0 2px var(--six); 
-}
-
 
 .link {
     text-decoration: none; 
@@ -133,19 +135,15 @@ body {
   min-width: 0;
   padding: 16px 15px;
   text-align: center;
-  width: 40em;
-  margin-right: 0.6em;
+  width: 41em;
+  margin-right: 1.2em;
 }
 
 #say-hi-form {
-  padding-left: 2em;
+  padding-left: 1.5em;
   display: flex;
   gap: 4em;
   border: var(--red-border);
-}
-
-p { 
-  line-height: 1.5em;
 }
 
 .tooltip {
@@ -177,3 +175,61 @@ p {
 .tooltip:hover .tooltiptext {
   opacity: 1;
 }
+
+
+.card-container {
+  color: var(--three);
+  font-weight: 10;
+  border: var(--red-border);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 1.8em;
+  border: var(--red-border);
+  justify-content: center;
+  height: 8.5em;
+  display: var(--cards-display);
+}
+
+.card {
+  width: 8.7em;
+  height: 6em;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease-in-out;
+}
+
+.initial-text {
+  position: absolute;
+  transition: 0.2s ease-in-out;
+  z-index: 1;
+  font-size: 0.9em;
+}
+
+.secondary-text {
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  transition: 0.2s ease-in-out;
+  z-index: 2;
+  font-size: 0.7em;
+}
+
+.card:hover > .secondary-text {
+  opacity: 1;
+}
+
+.card:hover > .initial-text {
+  height: 65%;
+  filter: blur(7px);
+  opacity: 0;
+  animation: anim 3s infinite;
+}
+
+
