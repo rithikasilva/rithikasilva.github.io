@@ -45,7 +45,7 @@ p {
 }
 
 #hi-my-name {
-  margin-bottom: 0.5em; 
+  margin-bottom: 0.7em; 
   text-shadow: 0 0 3px var(--six), 0 0 2px var(--six), 0 0 2px var(--six);  
   line-height: 1em;
 }
