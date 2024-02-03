@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     "Rithika", 
                     "රිthika", 
                     "රිතිka",
-                     "රිතිකා",
-                     "රිතිකා",
-                     "රිතිකා",
-                     "රිතිකා", 
-                     "රිතිකා",  
-                     "Riතිකා",
-                     "Rithiකා"];
+                     "රිතික",
+                     "රිතික",
+                     "රිතික",
+                     "රිතික", 
+                     "රිතික",  
+                     "Riතික",
+                     "Rithiක"];
     var currentIndex = 0;
 
     // Initial flash
