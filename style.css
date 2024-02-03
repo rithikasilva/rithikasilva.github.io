@@ -44,6 +44,12 @@ p {
     min-width: 80em;
 }
 
+#hi-my-name {
+  margin-bottom: 0.5em; 
+  text-shadow: 0 0 3px var(--six), 0 0 2px var(--six), 0 0 2px var(--six);  
+  line-height: 1em;
+}
+
 #wwwwwh {
     color: var(--three);
     font-weight: 10;
