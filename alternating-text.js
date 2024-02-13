@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     `on a mission to pet a cat from every country.`,
     `exploring the digital frontier.`,
     `looking for more things to add here (._.).`,
-    `hoping Tron: Ares will be good.`];
+    `hoping Tron: Ares will be good.`,
+    `looking for more songs to listening to!`];
     let currentIndex = 0;
     const longest = textArray.reduce((max, str) => Math.max(max, str.length), 0);
 
