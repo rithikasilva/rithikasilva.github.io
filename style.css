@@ -4,7 +4,7 @@
   --two: #e9ecef;
   --three: #dee2e6;
   --four: #ced4da;
-  --five: #adb5bd;
+  --five: #989fa7;
   --six: #6c757d;
   --seven: #495057;
   --eight: #343a40;
@@ -67,7 +67,7 @@ p {
 
 .link {
     text-decoration: none; 
-    color: var(--six);
+    color: var(--five);
 }
 .link:hover {
     color: var(--one);
