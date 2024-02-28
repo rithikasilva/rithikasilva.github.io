@@ -50,13 +50,12 @@ p {
   line-height: 1em;
 }
 
-#wwwwwh {
+.wwwwwh {
     color: var(--three);
     font-weight: 10;
     border: var(--red-border);
     padding-top: 2em;
     padding-right: 2em;
-    padding-bottom: 1em;
 }
 
 #alternatingText {
