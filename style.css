@@ -11,7 +11,7 @@
   --nine: #212529;
   --ten: #0c0b0c;
   --eleven: #131415;
-  --cards-display: none; /* flex or none */
+  /* --cards-display: flex; flex or none */
 }
 
 
@@ -181,13 +181,14 @@ p {
 }
 
 
+/* Card Stuff */
+
 .card-container {
   color: var(--three);
   font-weight: 10;
   border: var(--red-border);
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
   gap: 1.8em;
   border: var(--red-border);
   justify-content: center;
@@ -196,7 +197,6 @@ p {
 }
 
 .card {
-  width: 8.7em;
   height: 6em;
   border-radius: 1em;
   display: flex;
@@ -204,36 +204,34 @@ p {
   align-items: center;
   justify-content: center;
   transition: 0.2s ease-in-out;
+  margin-top: 1em;
+  padding: 0 0;
 }
 
-.initial-text {
-  position: absolute;
-  transition: 0.2s ease-in-out;
-  z-index: 1;
-  font-size: 0.9em;
+.original-text {
+  display: block;
 }
 
-.secondary-text {
-  opacity: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  transition: 0.2s ease-in-out;
-  z-index: 2;
-  font-size: 0.7em;
+.hover-text {
+  display: none;
+  font-size: 0.8em;
 }
 
-.card:hover > .secondary-text {
-  opacity: 1;
+.card:hover .original-text {
+  display: none;
 }
 
-.card:hover > .initial-text {
-  height: 65%;
-  filter: blur(7px);
-  opacity: 0;
-  animation: anim 3s infinite;
+.card:hover .hover-text {
+  display: block;
+}
+
+.banner {
+  height: 100%;
+  background: var(--ten);
+  background-size: 45em;
+  background-position: center;
+  width: 100%;
+  border-radius: 0.8em 0.8em 0 0;
 }
 
 

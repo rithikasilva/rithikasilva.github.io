@@ -5,11 +5,106 @@
     <meta charset="utf-8">
     <title>Rithika Silva - Projects</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="images\Profile New.jpg">
 </head>
 
 <body>
-    <div class="content">
+    <div id="top-row" style="font-size: 9px;">
+        <a href="https://rithikasilva.github.io/b.log-/" class="clickable">Blog</a>
+        <a href="Rithika Silva.pdf" class="clickable" download>Resume</a>
+        <a href="index.html" class="clickable">Home</a>
+        <a href="gallery/gallery.html" class="clickable">Gallery</a>
+        <table id="player" style="color: #fff; filter: opacity(0.85); height: 100px; width: 320px; padding-top: 0.35em;">
+        <tr height="100%">
+            <td width="20%" align="center">
+            <a id="player-link" href="">
+                <img id="player-album-art" src="https://horizondatasys.com/wp-content/uploads/2018/01/Dark-Gray-Square.png" style="margin: 1em; max-height: 8em; border-radius: 1em" />
+            </a>
+            </td>
+
+            <td width="80%">
+            <div style="margin: 1em 1em 1em 0">
+                <div id="player-song" style="font-size: 1.4em; font-weight: bold;">Listening to ...</div>
+                <div id="player-artist" style="font-size: 1.12em; margin-bottom: 1em; letter-spacing: 0.1em; font-weight: bold;">absolutely nothing :P</div>
+                <div id="player-status" style="margin: 2em 0 1em 0"></div>
+                <div id="player-time" style="position: relative; float: right; top: -2em; font-weight: bold"></div>
+                <div id="player-progress-back" style="border: 0.15em solid #eee; height: 1em; border-radius: 10px">
+                <div id="player-progress" style="
+                    background-color: #eee;
+                    border: 0.1em solid transparent;
+                    height: 1em;
+                    border-radius: 10px;
+                    transition: width 0.2s;
+                    "></div>
+                </div>
+            </div>
+            </td>
+        
+        </tr>
+        <div id="player-background" class="background" style="
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -10;
+            background-position: center center;
+            background-size: 0%;
+            filter: blur(2em);
+            position: absolute;
+            transition: background-image 0.5s ease-in;
+            "></div>
+        </table>
+        <script src="spotify.js"></script>
+    </div>
+    <div class="wwwwwh">
+        <p>
+            Not all projects are listed. Besides those that are private, 
+            the most up-to-date list is just my GitHub repositories. Projects through volunteer experiences, competitions, and club work isn't listed 
+            (that is, anything with shared ownership of creation).
+            Strike up a conversation if you wan't to talk about those or get access to my private repositories.
+        </p>
+    </div>  
+    <div class="card-container">
+        <a href="https://github.com/rithikasilva/rithikasilva.github.io" style="text-decoration: none;"><div class="card clickable">
+            <div class="banner">&nbsp;</div>
+            <div class="card-text">
+                <span class="original-text">This Site</span>
+                <span class="hover-text">It's gone over a couple iterations through the years.</span>
+            </div>
+        </div></a>
+        <a href="https://github.com/rithikasilva/readme-lol-stats" style="text-decoration: none;"><div class="card clickable">
+            <div class="banner" style="background-image: url(./project-assets/lol-stats.jpg); background-size: 10em;">&nbsp;</div>
+            <div class="card-text">
+                <span class="original-text">README Profile LoL Stats</span>
+                <span class="hover-text">GitHub Action to display your League of Legends statistics on your README profile</span>
+            </div>
+        </div></a>
+        <a href="https://github.com/rithikasilva/go-lambda-calc" style="text-decoration: none;"><div class="card clickable">
+            <div class="banner" style="background-image: url(./project-assets/lambda-calc.png); background-size: 13em;">&nbsp;</div>
+            <div class="card-text">
+                <span class="original-text">Lambda Calculus Interpretor</span>
+                <span class="hover-text">Normal order reduction, variable capture avoiding, and custom expressions</span>
+            </div>
+        </div></a>
+        <a href="https://github.com/catppuccin/blink" style="text-decoration: none;"><div class="card clickable">
+            <div class="banner" style="background-image: url(./project-assets/catppuccin-banner.webp);">&nbsp;
+            </div>
+            <div class="card-text">
+                <span class="original-text">Catppuccin - Blink</span>
+                <span class="hover-text">Soothing pastel theme for Blink Shell</span>
+            </div>
+        </div></a>
+        <a href="https://github.com/rithikasilva/project-list" style="text-decoration: none;"><div class="card clickable">
+            <div class="banner" style="background-image: url(./project-assets/slifer_vs_obelisk_by_kraus_illustration_dc09ca2-pre.jpg);">&nbsp;</div>
+            <div class="card-text">
+                <span class="original-text">Obelisk API and Slifer Web Client</span>
+                <span class="hover-text">Personal tasks and statistics management API and mobile-first webapp</span>
+            </div>
+        </div></a>
     </div>
 </body>
 </html>
+
+
+
+
+
