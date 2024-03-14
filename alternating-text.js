@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     'currently learning Rust.', 
     'lacking sleep :(.',
     `debugging my life, one line at a time.`,
+    `writing code to help you get back to doing things you enjoy faster.`,
     `on a mission to pet a cat from every country.`,
     `exploring the digital frontier.`,
     `looking for more things to add here (._.).`,
