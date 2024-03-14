@@ -225,6 +225,11 @@ p {
   display: block;
 }
 
+.card:hover .banner {
+  background-image: none !important;
+  background-color: var(--nine);
+}
+
 .banner {
   height: 100%;
   background: var(--ten);
