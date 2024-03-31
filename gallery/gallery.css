@@ -1,5 +1,23 @@
+:root {
+  /* --red-border: 1px solid red; */
+  --one: #f8f9fa;
+  --two: #e9ecef;
+  --three: #dee2e6;
+  --four: #ced4da;
+  --five: #989fa7;
+  --six: #6c757d;
+  --seven: #495057;
+  --eight: #343a40;
+  --nine: #212529;
+  --ten: #0c0b0c;
+  --eleven: #131415;
+  /* --cards-display: flex; flex or none */
+}
+
+
 body {
-    background: #E7E5E7;
+    background: var(--eleven);
+    /* background: #E7E5E7; */
     animation: 0.5s fadeInUp;
 }
 
