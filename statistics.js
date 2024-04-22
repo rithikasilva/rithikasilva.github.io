@@ -28,13 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
   function populateClassInfo(jsonData) {
     const activeClasses = jsonData["university"]["active-classes"];
     const classInfoElement = document.getElementById('class-info');
+    const timetaggerdata = jsonData["timetagger"]
     classInfoElement.innerHTML = '';
     for (const className in activeClasses) {
-      if (activeClasses.hasOwnProperty(className)) {
-        const classData = activeClasses[className];
+      if (timetaggerdata.hasOwnProperty(`#` + className.toLocaleLowerCase())) {
         const paragraph = document.createElement('p');
         paragraph.style.fontSize = '0.8em';
-        paragraph.textContent = `${className} - ${classData["Hours"]} HRS`;
+        paragraph.textContent = `${className}: ${timetaggerdata[`#` + className.toLocaleLowerCase()]} HRS`;
         classInfoElement.appendChild(paragraph);
       }
     }
