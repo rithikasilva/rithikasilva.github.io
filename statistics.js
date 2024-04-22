@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  fetch('https://rithikasilva.ca/personal-statistics/data.json')
+  fetch('https://maelstrom.tail561e2.ts.net:1000/data.json')
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
