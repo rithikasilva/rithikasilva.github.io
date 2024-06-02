@@ -42,6 +42,13 @@ var projects = [
         "Link": "https://github.com/rithikasilva/project-list"
     },
     {
+        "Name": "usportspy", 
+        "Description": "Python package for USPORTS Data", 
+        "Technologies": "Python", 
+        "ImageStyle": "",
+        "Link": "https://github.com/uwaggs/usportspy"
+    },
+    {
         "Name": "WatchDog", 
         "Description": "CLI tool to monitor files for changes and run commands", 
         "Technologies": "Go", 
