@@ -1,6 +1,7 @@
 :root {
   /* --red-border: 1px solid red; */
-  --one: #f8f9fa;
+  /* Old Colours */
+  /* --one: #f8f9fa;
   --two: #e9ecef;
   --three: #dee2e6;
   --four: #ced4da;
@@ -10,27 +11,35 @@
   --eight: #343a40;
   --nine: #212529;
   --ten: #0c0b0c;
-  --eleven: #131415;
+  --eleven: #131415; */
+
+  --theme: rgb(29, 30, 32);
+  --entry: rgb(46, 46, 51);
+  --primary: rgb(218, 218, 219);
+  --secondary: rgb(155, 156, 157);
+  --tertiary: rgb(65, 66, 68);
+  --content: rgb(196, 196, 197);
+  --code-block-bg: rgb(46, 46, 51);
+  --code-bg: rgb(55, 56, 62);
+  --border: rgb(51, 51, 51);
+
   /* --cards-display: flex; flex or none */
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-* {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
-    background: var(--eleven);
-    margin-top: 1em;
-    width: 50em;
-    margin-left: auto;
-    margin-right: auto;
-    -webkit-text-size-adjust: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  word-break: break-word;
+  background: var(--theme);
+
+  margin-top: 1em;
+  width: 45em;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-text-size-adjust: 100%;
 }
 
 p { 
@@ -42,43 +51,43 @@ p {
     display: flex;
     gap: 1.6em;
     border: var(--red-border);
-    min-width: 80em;
 }
 
 #hi-my-name {
+  color: var(--primary);
   margin-bottom: 0.7em; 
-  text-shadow: 0 0 3px var(--six), 0 0 2px var(--six), 0 0 2px var(--six);  
   line-height: 1em;
+  font-size: 34px;
 }
 
 .wwwwwh {
-    color: var(--three);
-    font-weight: 10;
+    color: var(--secondary);
+    font-size: 16px;
     border: var(--red-border);
     padding-top: 2em;
     padding-right: 2em;
 }
 
 #alternatingText {
+  color: var(--primary);
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
-  text-shadow: 0 0 2px var(--six), 0 0 2px var(--six), 0 0 2px var(--six); 
   font-weight: bold;
 }
 
 .link {
     text-decoration: none; 
-    color: var(--five);
+    color: var(--primary);
 }
 .link:hover {
-    color: var(--one);
-    text-shadow: 0 0 5px  var(--six), 0 0 5px  var(--six), 0 0 5px  var(--six); 
+    color: var(--primary);
+    text-shadow: 0 0 5px  var(--content), 0 0 5px  var(--content), 0 0 5px  var(--content); 
 }
 
 .clickable {
   appearance: none;
   background-color: transparent;
-  border: 3px solid var(--three);
+  border: 3px solid var(--primary);
   border-radius: 15px;
   box-sizing: border-box;
   color: #dee2e6;
@@ -107,8 +116,8 @@ p {
 }
 
 .clickable:hover {
-  color: var(--one);
-  background-color: var(--nine);
+  color: var(--primary);
+  background-color: var(--tertiary);
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
   -webkit-box-shadow:0px 0px 45px 0px rgba(248,249,250,0.08);
@@ -124,7 +133,7 @@ p {
 .outlined-box {
   appearance: none;
   background-color: transparent;
-  border: 3px solid var(--three);
+  border: 3px solid var(--primary);
   border-radius: 15px;
   box-sizing: border-box;
   color: #dee2e6;
@@ -157,8 +166,8 @@ p {
 .tooltip .tooltiptext {
   visibility: hidden;
   left: 140%;
-  background-color: var(--nine);
-  color: var(--six);
+  background-color: var(--code-block-bg);
+  color: var(--secondary);
   padding: 10px;
   border-radius: 10px;
   position: absolute;
@@ -183,13 +192,12 @@ p {
 /* Card Stuff */
 
 .card-container {
-  color: var(--three);
+  color: var(--primary);
   font-weight: 10;
   border: var(--red-border);
   display: flex;
   flex-wrap: wrap;
   gap: 1.8em;
-  border: var(--red-border);
   justify-content: center;
   height: 8.5em;
   display: var(--cards-display);
@@ -226,7 +234,7 @@ p {
 
 .card:hover .banner {
   background-image: none !important;
-  background-color: var(--nine);
+  background-color: var(--code-bg);
 }
 
 .banner {
@@ -245,7 +253,7 @@ Statistics Page CSS
 .stats-grid {
   margin-top: 2em;
   border: var(--red-border);
-  color: var(--three);
+  color: var(--primary);
 
   display: grid;
   grid-template-rows: repeat(6, 7em);
@@ -264,7 +272,7 @@ Statistics Page CSS
   margin-top: 0.2em;
   height: 4em;
   width: 4em;
-  background-color: var(--four);
+  background-color: var(--primary);
   border-radius: 50%;
   display: inline-block;
 }
@@ -329,7 +337,7 @@ Statistics Page CSS
 
 .card-link {
   text-decoration: none; 
-  color: var(--three);
+  color: var(--primary);
 }
 
 
