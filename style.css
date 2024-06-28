@@ -12,7 +12,7 @@
   --nine: #212529;
   --ten: #0c0b0c;
   --eleven: #131415; */
-
+  --radius: 8px;
   --theme: rgb(29, 30, 32);
   --entry: rgb(46, 46, 51);
   --primary: rgb(218, 218, 219);
@@ -27,6 +27,7 @@
 }
 
 body {
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 18px;
   line-height: 1.6;
@@ -40,55 +41,57 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-p { 
+p {
   line-height: 1.5em;
 }
 
 #top-row {
-    align-items: center;
-    display: flex;
-    gap: 1.6em;
-    border: var(--red-border);
+  align-items: center;
+  display: flex;
+  gap: 1.6em;
+  border: var(--red-border);
 }
 
 #hi-my-name {
   color: var(--primary);
-  margin-bottom: 0.7em; 
+  margin-bottom: 0.7em;
   line-height: 1em;
   font-size: 34px;
 }
 
 .wwwwwh {
-    color: var(--secondary);
-    font-size: 16px;
-    border: var(--red-border);
-    padding-top: 2em;
-    padding-right: 2em;
+  color: var(--secondary);
+  font-size: 16px;
+  border: var(--red-border);
+  padding-top: 2em;
+  padding-right: 2em;
 }
 
 #alternatingText {
   color: var(--primary);
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .link {
-    text-decoration: none; 
-    color: var(--primary);
+  text-decoration: none;
+  color: var(--primary);
+  /* font-weight: bold; */
 }
+
 .link:hover {
-    color: var(--primary);
-    text-shadow: 0 0 5px  var(--content), 0 0 5px  var(--content), 0 0 5px  var(--content); 
+  color: var(--primary);
+  text-shadow: 0 0 5px var(--content), 0 0 5px var(--content), 0 0 5px var(--content);
 }
 
 .clickable {
   appearance: none;
-  background-color: transparent;
-  border: 3px solid var(--primary);
-  border-radius: 15px;
+  background-color: var(--entry);
+  border-radius: var(--radius);
+  border-width: 0;
   box-sizing: border-box;
-  color: #dee2e6;
+  color: var(--primary);
   cursor: pointer;
   display: inline-block;
   font-size: 19px;
@@ -118,8 +121,8 @@ p {
   background-color: var(--tertiary);
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
-  -webkit-box-shadow:0px 0px 45px 0px rgba(248,249,250,0.08);
-  -moz-box-shadow: 0px 0px 45px 0px rgba(248,249,250,0.08);
+  -webkit-box-shadow: 0px 0px 45px 0px rgba(248, 249, 250, 0.08);
+  -moz-box-shadow: 0px 0px 45px 0px rgba(248, 249, 250, 0.08);
 }
 
 .clickable:active {
@@ -130,11 +133,11 @@ p {
 
 .outlined-box {
   appearance: none;
-  background-color: transparent;
-  border: 3px solid var(--primary);
-  border-radius: 15px;
+  background-color: var(--entry);
+  border-width: 0;
+  border-radius: var(--radius);
   box-sizing: border-box;
-  color: #dee2e6;
+  color: var(--secondary);
   cursor: pointer;
   display: inline-block;
   font-size: 15px;
@@ -164,7 +167,7 @@ p {
 .tooltip .tooltiptext {
   visibility: hidden;
   left: 140%;
-  background-color: var(--code-block-bg);
+  background-color: var(--entry);
   color: var(--secondary);
   padding: 10px;
   border-radius: 10px;
@@ -289,11 +292,11 @@ Statistics Page CSS
   padding-top: 0.8em;
 }
 
-#tft-card:hover .pre-hover{
+#tft-card:hover .pre-hover {
   display: none;
 }
 
-#tft-card:hover .post-hover{
+#tft-card:hover .post-hover {
   display: block;
 }
 
@@ -334,7 +337,7 @@ Statistics Page CSS
 }
 
 .card-link {
-  text-decoration: none; 
+  text-decoration: none;
   color: var(--primary);
 }
 
@@ -342,8 +345,19 @@ Statistics Page CSS
 
 /* Card CSS */
 #player-album-art {
-  border: 3px solid var(--primary); 
+  border: 0;
+  border-radius: var(--radius);
+  margin: 1em;
+  max-height: 69px;
 }
 
-
-
+#player {
+  color: var(--primary);
+  filter: opacity(0.85);
+  min-height: 55px;
+  min-width: 320px;
+  padding-top: 0.35em;
+  font-size: 10px;
+  font-weight: bold;
+  max-width: 340px;
+}
