@@ -1,17 +1,5 @@
 :root {
   /* --red-border: 1px solid red; */
-  /* Old Colours */
-  /* --one: #f8f9fa;
-  --two: #e9ecef;
-  --three: #dee2e6;
-  --four: #ced4da;
-  --five: #989fa7;
-  --six: #6c757d;
-  --seven: #495057;
-  --eight: #343a40;
-  --nine: #212529;
-  --ten: #0c0b0c;
-  --eleven: #131415; */
   --radius: 8px;
   --theme: rgb(29, 30, 32);
   --entry: rgb(46, 46, 51);
@@ -50,6 +38,7 @@ p {
   display: flex;
   gap: 1.6em;
   border: var(--red-border);
+  height: 15em;
 }
 
 #hi-my-name {
@@ -149,7 +138,7 @@ p {
   min-width: 0;
   padding: 16px 15px;
   text-align: center;
-  width: 41em;
+  width: 44.5em;
   margin-right: 1.2em;
 }
 
@@ -206,7 +195,6 @@ p {
 
 .card {
   height: 6em;
-  border-radius: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -235,7 +223,7 @@ p {
 
 .card:hover .banner {
   background-image: none !important;
-  background-color: var(--code-bg);
+  background-color: var(--entry);
 }
 
 .banner {
@@ -244,7 +232,7 @@ p {
   background-size: 45em;
   background-position: center;
   width: 100%;
-  border-radius: 0.8em 0.8em 0 0;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 
@@ -343,12 +331,15 @@ Statistics Page CSS
 
 
 
-/* Card CSS */
+
+
+/* Spotify Card CSS */
 #player-album-art {
   border: 0;
   border-radius: var(--radius);
   margin: 1em;
   max-height: 69px;
+  background-color: var(--entry);
 }
 
 #player {
@@ -360,4 +351,53 @@ Statistics Page CSS
   font-size: 10px;
   font-weight: bold;
   max-width: 340px;
+}
+
+#player-song {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+#player-artist {
+  font-size: 1.12em;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+}
+
+#player-status {
+  margin: 1.2em 0 1em 0;
+}
+
+#player-time {
+  position: relative;
+  float: right;
+  top: -2em;
+  font-weight: bold;
+}
+
+#player-progress-back {
+  border: 0.15em solid #eee;
+  height: 1em;
+  border-radius: 10px;
+}
+
+#player-progress {
+  background-color: #eee;
+  border: 0.1em solid transparent;
+  height: 1em;
+  border-radius: 10px;
+  transition: width 0.2s;
+}
+
+#player-background {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -10;
+  background-position: center center;
+  background-size: 0%;
+  filter: blur(2em);
+  position: absolute;
+  transition: background-image 0.5s ease-in;
 }

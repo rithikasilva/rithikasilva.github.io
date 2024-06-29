@@ -115,8 +115,9 @@ document.addEventListener("DOMContentLoaded", function() {
         link.style.textDecoration = "none";
         
         var div = document.createElement("div");
+        // div.className = "card clickable";
         div.className = "card clickable";
-
+       
         var banner = document.createElement("div");
         banner.className = "banner";
         banner.style = project.ImageStyle;
