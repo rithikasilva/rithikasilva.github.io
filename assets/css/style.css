@@ -33,6 +33,19 @@ p {
   line-height: 1.5em;
 }
 
+h1 {
+  font-size: 38px;
+  margin: 8px 0 8px 0;
+}
+
+h2 {
+  margin: 8px 0 8px 0;
+}
+
+ul {
+  margin: 8px 0 8px 0;
+}
+
 #top-row {
   align-items: center;
   display: flex;
@@ -48,11 +61,10 @@ p {
   font-size: 34px;
 }
 
-.wwwwwh {
+.content {
   color: var(--secondary);
   font-size: 16px;
   border: var(--red-border);
-  /* padding-top: 1em; */
   padding-right: 2em;
 }
 
@@ -146,6 +158,7 @@ p {
   display: flex;
   gap: 4em;
   border: var(--red-border);
+  margin-top: 2em;
 }
 
 .tooltip {
@@ -274,10 +287,15 @@ Statistics Page CSS
   display: flex;
 }
 
+#tft-rank-name-and-lp {
+  margin-bottom: 0;
+  margin-top: 0.4em;
+}
+
 #tft-card .post-hover {
-  font-size: 1.6em;
+  font-size: 1.3em;
   display: none;
-  padding-top: 0.8em;
+  padding-top: 0em;
 }
 
 #tft-card:hover .pre-hover {

@@ -1,0 +1,38 @@
+{{ $namejs := resources.Get "js/name.js" | minify }}
+{{ $style := resources.Get "css/style.css" | minify }}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Rithika Silva</title>
+    <link rel="stylesheet" href="{{ $style.Permalink }}">
+    <script>
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+
+        function showAlertIfMobile() {
+            if (isMobileDevice()) {
+                alert('I\'m lazy, so I didn\'t bother with making this site better for mobile. ' +
+                    'If you haven\'t already switched to a non-mobile device, don\'t blame me for a poor experierece. You\'ve been warned.');
+            }
+        }
+
+        window.onload = showAlertIfMobile;
+    </script>
+</head>
+
+<body>
+    {{ partial "header" . }}
+    <div class="content">
+        <h1 id="hi-my-name">Hi! I'm <span id="name">Rithika</span>.</h1>
+        <script src="{{ $namejs.Permalink}}"></script>
+        <p>
+            {{ .Content }}
+        </p>
+    </div>
+    {{ partial "contact-bar" . }}
+</body>
+
+</html>

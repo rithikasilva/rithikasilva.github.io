@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(jsonData => {
       populateTftData(jsonData);
-      populateClassInfo(jsonData);
+      // populateClassInfo(jsonData);
       heatgrid();
     })
     .catch(error => {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function populateTftData(jsonData) {
     document.getElementById('tft-rank-icon').src = jsonData["teamfight-tactics"]["rank icon"];
     document.getElementById('tft-rank-name-and-lp').textContent =
-      `${jsonData["teamfight-tactics"]["rank name"]} ${jsonData["teamfight-tactics"]["lp"]}LP`;
+      `${jsonData["teamfight-tactics"]["rank name"]} ${jsonData["teamfight-tactics"]["lp"]} LP`;
     document.getElementById('tft-summary').textContent =
       `Top ${jsonData["teamfight-tactics"]["top percentage"]}% • Top4 Rate ${jsonData["teamfight-tactics"]["top4 rate"]}%`;
   }

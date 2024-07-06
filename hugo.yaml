@@ -1,0 +1,8 @@
+baseURL: 'https://rithikasilva.ca/'
+languageCode: 'en-us'
+title: 'Rithika Silva'
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true

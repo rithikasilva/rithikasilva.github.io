@@ -11,8 +11,8 @@ fetch(`${serviceHost}/get-now-playing`)
         return
     } else {
         songData = data;
-        if (data.item.name.length > 20) {
-            document.getElementById("player-song").innerHTML = `Listening to ` + data.item.name.substring(0, 20) + `...`;
+        if (data.item.name.length > 18) {
+            document.getElementById("player-song").innerHTML = `Listening to ` + data.item.name.substring(0, 18) + `...`;
         } else {
             document.getElementById("player-song").innerHTML = `Listening to ` + data.item.name;
         }
