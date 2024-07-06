@@ -1,0 +1,15 @@
+{{ $style := resources.Get "css/gallery.css" | minify }}
+{{ $galleryjs := resources.Get "js/gallery.js" | minify }}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ $style.Permalink }}">
+</head>
+<body>
+    <div class="gallery">
+        <div class="row">
+        </div>
+    </div>
+    <script src="{{ $galleryjs.Permalink }}"></script>
+</body>
+</html>

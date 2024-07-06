@@ -1,5 +1,2 @@
-gallery/generate_gallery.py
-gallery/image_rename.py
-gallery/rename_and_generate.sh
-local-stats.json
 public/*
+.hugo_build.lock

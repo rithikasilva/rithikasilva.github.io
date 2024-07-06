@@ -6,7 +6,7 @@ headerLinks:
     - text: "Resume"
       url: "../resume.pdf"
     - text: "Gallery"
-      url: "../gallery/gallery.html"
+      url: "../gallery"
     - text: "Projects"
       url: "../projects"
 ---
