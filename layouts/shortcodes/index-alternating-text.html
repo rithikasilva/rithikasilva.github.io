@@ -1,0 +1,3 @@
+{{ $alternatingtext := resources.Get "js/alternating-text.js" | minify }}
+<a id="alternatingText">~</a><script src="{{ $alternatingtext.Permalink }}"></script>
+

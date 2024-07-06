@@ -17,28 +17,28 @@ var projects = [
         "Name": "README Profile LoL Stats", 
         "Description": "GitHub Action to display your League of Legends statistics on your README profile", 
         "Technologies": "Python", 
-        "ImageStyle": "background-image: url(./project-assets/lol-stats.jpg); background-size: 10em;",
+        "ImageStyle": "background-image: url(../project-assets/lol-stats.jpg); background-size: 10em;",
         "Link": "https://github.com/rithikasilva/readme-lol-stats"
     },
     {
         "Name": "Lambda Calculus Interpretor", 
         "Description": "Normal order reduction, variable capture avoiding, and custom expressions", 
         "Technologies": "Go", 
-        "ImageStyle": "background-image: url(./project-assets/lambda-calc.png); background-size: 13em;",
+        "ImageStyle": "background-image: url(../project-assets/lambda-calc.png); background-size: 13em;",
         "Link": "https://github.com/rithikasilva/go-lambda-calc"
     },
     {
         "Name": "Catppuccin - Blink", 
         "Description": "Soothing pastel theme for Blink Shell", 
         "Technologies": "JavaScript", 
-        "ImageStyle": "background-image: url(./project-assets/catppuccin-banner.webp);",
+        "ImageStyle": "background-image: url(../project-assets/catppuccin-banner.webp);",
         "Link": "https://github.com/catppuccin/blink"
     },
     {
         "Name": "Obelisk API and Slifer Mobile Client", 
         "Description": "Personal tasks and statistics management API and mobile-first webapp", 
         "Technologies": "Go + Flask/HTML/CSS/PostgreSQL", 
-        "ImageStyle": "background-image: url(./project-assets/slifer_vs_obelisk_by_kraus_illustration_dc09ca2-pre.jpg);",
+        "ImageStyle": "background-image: url(../project-assets/slifer_vs_obelisk_by_kraus_illustration_dc09ca2-pre.jpg);",
         "Link": "https://github.com/rithikasilva/project-list"
     },
     {
@@ -73,7 +73,7 @@ var projects = [
         "Name": "Jean the Generative Art Bot", 
         "Description": "Twitter bot to manipulate images from Unplash algorithmically to produce generative art. NOT AI ART.", 
         "Technologies": "Python", 
-        "ImageStyle": "background-image: url(./project-assets/jean.JPG);",
+        "ImageStyle": "background-image: url(../project-assets/jean.JPG);",
         "Link": ""
     },
     {
@@ -87,7 +87,7 @@ var projects = [
         "Name": "Canuck", 
         "Description": "FRC 1305's robot for the 2020/2021 season(s)", 
         "Technologies": "Java", 
-        "ImageStyle": "background-image: url(./project-assets/canuck.jpg); background-size: 44em; background-position: 0 -26em;",
+        "ImageStyle": "background-image: url(../project-assets/canuck.jpg); background-size: 44em; background-position: 0 -26em;",
         "Link": "https://www.vmcdn.ca/f/files/baytoday/images/education/canuck-2020-team-1305.jpg"
     },
     {
@@ -101,7 +101,7 @@ var projects = [
         "Name": "NearNorthBot", 
         "Description": "Twitter, FaceBook, and NNDSB scraping Discord bot for news", 
         "Technologies": "Python", 
-        "ImageStyle": "background-image: url(./project-assets/nndsb.png); background-size: 45em; background-position: 0 -12em;",
+        "ImageStyle": "background-image: url(../project-assets/nndsb.png); background-size: 45em; background-position: 0 -12em;",
         "Link": ""
     },
 ];

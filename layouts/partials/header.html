@@ -1,0 +1,9 @@
+<div id="top-row" style="font-size: 9px;">
+        {{ range .Params.headerLinks }} 
+        <a href="{{ .url }}" class="clickable">{{ .text }}</a>
+        {{ end }}
+        <div style="margin-left: auto;">
+                {{ partial "spotify-widget" . }}
+        </div>
+</div>
+
