@@ -1,5 +1,4 @@
 {{ $style := resources.Get "css/style.css" | minify }}
-{{ $projectsjs := resources.Get "js/projects.js" | minify }}
 {{ $pages := where .Site.RegularPages "Section" "projects" }}
 {{ $pagesSorted := sort $pages ".Date" "desc" }}
 <!DOCTYPE html>
