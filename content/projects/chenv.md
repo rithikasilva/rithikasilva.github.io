@@ -1,5 +1,6 @@
 ---
 title: ""
+Date: "2092-01-01"
 headerLinks:
     - text: "Blog"
       url: "https://rithikasilva.ca/b.log-/"
@@ -10,5 +11,11 @@ headerLinks:
     - text: "Home"
       url: "../"
     - text: "?"
-      url: "../stats-and-fun-facts"
+ProjectData: 
+  - Name: "chenv"
+    Description: "CLI tool to manage environment variables, and manage profiles"
+    Technologies: "Go"
+    ImageStyle: ""
+    Link: ""
 ---
+

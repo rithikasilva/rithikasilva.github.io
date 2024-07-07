@@ -1,5 +1,6 @@
 ---
 title: ""
+date: "2099-01-01"
 headerLinks:
     - text: "Blog"
       url: "https://rithikasilva.ca/b.log-/"
@@ -10,5 +11,10 @@ headerLinks:
     - text: "Home"
       url: "../"
     - text: "?"
-      url: "../stats-and-fun-facts"
+ProjectData: 
+  - Name: "This Site"
+    Description: "It's gone over a couple iterations through the years"
+    Technologies: "HTML/CSS/JavaScript"
+    ImageStyle: ""
 ---
+

@@ -10,10 +10,10 @@
 </head>
 
 <body>
-    {{ partial "header" . }} 
+    {{ partial "header" . }}
     <div class="content">
         {{ .Content | safeHTML }}
-    </div>  
+    </div>
     <div class="stats-grid">
         <div id="tft-card" class="grid-item clickable" style="grid-area: 1 / 1 / 2 / 4;">
             <a class="card-link" href="https://lolchess.gg/profile/na/R1tzcrackers-3323/">
@@ -32,7 +32,13 @@
                 </div>
             </a>
         </div>
-        <div id="device-status" class="grid-item clickable" style="grid-area: 1 / 4 / 2 / 6">
+        <div id="location" class="grid-item clickable" style="grid-area: 1 / 4 / 2 / 6">
+            <div class="pre-hover">
+                <p> 📍 Waterloo, ON</p>
+            </div>
+            <div class="post-hover">
+                <p> Current Location</p>
+            </div>
         </div>
         <div class="grid-item clickable" style="grid-area: 1 / 6 / 3 / 6">
         </div>
@@ -49,9 +55,5 @@
     </div>
 </body>
 <script src="{{ $statsjs.Permalink }}"></script>
+
 </html>
-
-
-
-
-

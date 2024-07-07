@@ -21,6 +21,7 @@ Whoops, you aren't supposed to be here yet! This page will eventually contain so
 
 ## Miscellaneous
 - My personality type is [ENTJ-T](https://www.16personalities.com/entj-personality).
+- My Hogwarts House is Slytherin.
 - I play the piano and flute.
 - I have a soft spot for dexterity based hobbies. Some of the hobbies I've had over the years include: 
 [speedcubing](https://en.wikipedia.org/wiki/Speedcubing),
@@ -32,7 +33,7 @@ Whoops, you aren't supposed to be here yet! This page will eventually contain so
 [begleri](https://en.wikipedia.org/wiki/Begleri).
 I might be missing a couple, but this covers the most important 😁.
 - I am an alumni of [FIRST Team 1305](https://www.thebluealliance.com/team/1305). I was on the team from 2017-2021 and continue to be a mentor-at-large.
-- My perfect Pokémon team is: Lucario, Umbreon, Metagross, Haxorus, Rayquaza, and Charizard:
+- My ideal Pokémon team is: Lucario, Umbreon, Metagross, Haxorus, Charizard, and Rayquaza:
 <div style="display: flex; align-items: flex-end; height: 80px; margin-top: 30px;">
     <div style="flex: 50%; padding: 5px; border: 10px red;">
 	<a href="https://pokemondb.net/pokedex/lucario"><img src="https://img.pokemondb.net/sprites/black-white/anim/normal/lucario.gif" alt="Lucario"></a>
@@ -54,4 +55,8 @@ I might be missing a couple, but this covers the most important 😁.
     </div>
 </div>
 
+
 # Statistics
+
+
+

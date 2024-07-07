@@ -1,5 +1,7 @@
 {{ $style := resources.Get "css/style.css" | minify }}
 {{ $projectsjs := resources.Get "js/projects.js" | minify }}
+{{ $pages := where .Site.RegularPages "Section" "projects" }}
+{{ $pagesSorted := sort $pages ".Date" "desc" }}
 <!DOCTYPE html>
 <html>
 
@@ -11,7 +13,8 @@
 
 <body>
     {{ partial "header" .}}
-    {{ range .Params.Projectdata }}
+    {{ range $pages }}
+    {{ range .Params.ProjectData }}
     <a href="{{ .Link }}" style="text-decoration: none;">
         <div class="card clickable">
             <div class="banner" style="{{ .ImageStyle | safeCSS }}">
@@ -26,6 +29,7 @@
             </div>
         </div>
     </a>
+    {{ end }}
     {{ end }}
     <div>
         <p>&nbsp;&nbsp;</p>

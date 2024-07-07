@@ -1,5 +1,6 @@
 ---
 title: ""
+Date: "2090-01-01"
 headerLinks:
     - text: "Blog"
       url: "https://rithikasilva.ca/b.log-/"
@@ -10,5 +11,11 @@ headerLinks:
     - text: "Home"
       url: "../"
     - text: "?"
-      url: "../stats-and-fun-facts"
+ProjectData: 
+  - Name: "CC3K"
+    Description: "Rogue-like dungeon crawler (for CS246)"
+    Technologies: "C++"
+    ImageStyle: ""
+    Link: ""
 ---
+

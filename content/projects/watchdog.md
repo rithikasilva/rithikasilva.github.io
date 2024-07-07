@@ -1,5 +1,6 @@
 ---
 title: ""
+Date: "2094-01-01"
 headerLinks:
     - text: "Blog"
       url: "https://rithikasilva.ca/b.log-/"
@@ -10,5 +11,11 @@ headerLinks:
     - text: "Home"
       url: "../"
     - text: "?"
-      url: "../stats-and-fun-facts"
+ProjectData: 
+  - Name: "WatchDog"
+    Description: "CLI tool to monitor files for changes and run commands"
+    Technologies: "Go"
+    ImageStyle: ""
+    Link: ""
 ---
+

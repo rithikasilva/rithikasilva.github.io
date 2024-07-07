@@ -1,5 +1,6 @@
 ---
 title: ""
+Date: "2093-01-01"
 headerLinks:
     - text: "Blog"
       url: "https://rithikasilva.ca/b.log-/"
@@ -10,5 +11,11 @@ headerLinks:
     - text: "Home"
       url: "../"
     - text: "?"
-      url: "../stats-and-fun-facts"
+ProjectData: 
+  - Name: "G14mon"
+    Description: "CLI tool to monitor my ASUS G14's systems details"
+    Technologies: "Go"
+    ImageStyle: ""
+    Link: ""
 ---
+

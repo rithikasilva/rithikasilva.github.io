@@ -1,5 +1,6 @@
 ---
 title: ""
+Date: "2095-01-01"
 headerLinks:
     - text: "Blog"
       url: "https://rithikasilva.ca/b.log-/"
@@ -10,5 +11,11 @@ headerLinks:
     - text: "Home"
       url: "../"
     - text: "?"
-      url: "../stats-and-fun-facts"
+ProjectData: 
+  - Name: "usportspy"
+    Description: "Python package for USPORTS data"
+    Technologies: "Python"
+    ImageStyle: ""
+    Link: "https://github.com/rithikasilva/project-list"
 ---
+
