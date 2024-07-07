@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const textArray = ['20 years old.', 
+    const textArray = [
+    `writing code to help you get back to doing things you enjoy faster.`,
     'currently learning Rust.', 
     'lacking sleep :(.',
     `debugging my life, one line at a time.`,
-    `writing code to help you get back to doing things you enjoy faster.`,
     `on a mission to pet a cat from every country.`,
     `exploring the digital frontier.`,
     `looking for more things to add here (._.).`,

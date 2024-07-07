@@ -270,19 +270,11 @@ Statistics Page CSS
   cursor: initial;
 }
 
-.dot {
-  margin-top: 0.2em;
-  height: 4em;
-  width: 4em;
-  background-color: var(--primary);
-  border-radius: 50%;
-  display: inline-block;
-}
+
 
 #tft-card {
   padding-top: 0em;
 }
-
 
 #tft-rank-name-and-lp {
   margin-bottom: 0;
@@ -306,6 +298,9 @@ Statistics Page CSS
   display: block;
 }
 
+
+
+
 #location .pre-hover {
   font-size: 1.4em;
   display: block;
@@ -328,6 +323,26 @@ Statistics Page CSS
   color: var(--primary);
 }
 
+#age .pre-hover {
+  font-size: 3em;
+  display: block;
+}
+#age .pre-hover .p {
+  line-height: 0.2em;
+}
+
+#age .post-hover {
+  font-size: 1.9em;
+  display: none;
+}
+
+#age:hover .pre-hover {
+  display: none;
+}
+
+#age:hover .post-hover {
+  display: block;
+}
 
 /* Spotify Card CSS */
 #player-album-art {
