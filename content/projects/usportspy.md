@@ -16,6 +16,6 @@ ProjectData:
     Description: "Python package for USPORTS data"
     Technologies: "Python"
     ImageStyle: ""
-    Link: "https://github.com/rithikasilva/project-list"
+    Link: "https://pypi.org/project/usportspy/"
 ---
 
