@@ -14,6 +14,15 @@
   /* --cards-display: flex; flex or none */
 }
 
+.vertical {
+  display: none;
+}
+
+.horizontal {
+  display: none;
+}
+
+
 body {
 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -284,6 +293,7 @@ Statistics Page CSS
 #tft-card .pre-hover {
   display: flex;
 }
+
 #tft-card .post-hover {
   font-size: 1.3em;
   display: none;
@@ -305,6 +315,7 @@ Statistics Page CSS
   font-size: 1.4em;
   display: block;
 }
+
 #location .post-hover {
   font-size: 1.4em;
   display: none;
@@ -327,6 +338,7 @@ Statistics Page CSS
   font-size: 3em;
   display: block;
 }
+
 #age .pre-hover .p {
   line-height: 0.2em;
 }
