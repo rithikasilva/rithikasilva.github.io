@@ -8,5 +8,5 @@ export default defineConfig({
     UnoCSS({ injectReset: true }),
     icon(),
   ],
-  output: "server",
+  output: "static",
 });
