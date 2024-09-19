@@ -3,7 +3,7 @@ import Card from "./Card/index.astro";
 ---
 
 <Card colSpan="md:col-span-1" rowSpan="md:row-span-2 gap-4" title="I am...">
-  <p id="alternatingText" class="text-lg font-light fade-text min-h-[100px]">
+  <p id="alternatingText" class="text-lg font-light fade-text min-h-[100px] max-w-[200px] min-w-[200px]">
     Some
   </p>
 </Card>
@@ -22,11 +22,11 @@ import Card from "./Card/index.astro";
       `on a mission to pet a cat from every country.`,
       'working on usportspy!',
       'currently learning Rust.', 
-      'severaly lacking sleep. No really, I mean it.',
+      'severely lacking sleep. No really, I mean it.',
       `exploring the digital frontier.`,
       `looking for more things to add here (._.).`,
       `hoping Tron: Ares will be good.`,
-      `looking for more songs to listening to!`
+      `looking for more songs to listen to!`
     ];
     let currentIndex = 0;
     const longest = textArray.reduce((max, str) => Math.max(max, str.length), 0);

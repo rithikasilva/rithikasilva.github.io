@@ -3,11 +3,11 @@ import Card from "./Card/index.astro";
 ---
 
 <Card colSpan="md:col-span-1" rowSpan="md:row-span-2" title="Spotify">
-  <div class="">
+  <div class="min-w-[200px]">
     <div class="flex flex-col">
       <div class="my-1" id="player">
         <div class="flex justify-between">
-          <div class="flex flex-col justify-between order-first w-full max-w-28">
+          <div class="flex flex-col justify-between order-first w-full max-w-30">
             <div>
               <div class="text-sm" id="player-song">Nothing</div>
               <div class="text-sm" id="player-artist">by Nobody</div>
@@ -15,9 +15,9 @@ import Card from "./Card/index.astro";
             </div>
             <div class="text-sm font-serif" id="player-time">0:00/0:00</div>
           </div>
-          <a class="order-last ml-5 aspect-square" id="player-link" href="">
+          <a class="order-last ml-1 lg:ml-3 aspect-square" id="player-link" href="">
             <img
-              class="rounded-lg object-scale-down size-20 bg-darkslate-200 outline-none"
+              class="rounded-lg md:size-20 bg-darkslate-200 outline-none"
               id="player-album-art"
               src="https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png"
             />
