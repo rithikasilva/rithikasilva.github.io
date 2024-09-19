@@ -1,0 +1,133 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Header from "../components/Header.astro";
+import Card from "../components/Card/index.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<script>
+  import { stagger, spring, timeline, type TimelineDefinition } from "motion";
+  import { loaderAnimation } from "../lib/constants";
+  const cards = document.querySelectorAll(".card");
+
+  const sequence = [
+    loaderAnimation,
+    [
+      cards,
+      { y: ["40%", "0%"], opacity: [0, 1] },
+      {
+        at: "-0.1",
+        duration: 0.4,
+        delay: stagger(0.3),
+        easing: spring({ velocity: 100, stiffness: 50, damping: 10 }),
+      },
+    ],
+  ];
+
+  timeline(sequence as TimelineDefinition);
+</script>
+
+<Layout title="Rithika Silva" description="">
+    <Header/>
+  <main class="lg:mt-20 text-white grid max-w-6xl lg:grid-cols-4 lg:gap-6">
+    <ProjectCard
+      name="My Dotfiles"
+      link="https://github.com/rithikasilva/.dotfiles"
+      technologies="Lua/Python/Bash"
+      image=""
+    >
+      Eternally changing :)
+    </ProjectCard>
+    <ProjectCard
+      name="README Profile LoL Stats"
+      technologies="Python"
+      image=""
+    >
+      GitHub Action to display your League of Legends statistics on your README.
+      profile
+    </ProjectCard>
+    <ProjectCard
+      name="Catppuccin - Blink"
+      technologies="JavaScript"
+      image=""
+    >
+      Soothing pastel theme for Blink Shell.
+    </ProjectCard>
+    <ProjectCard
+      name="usportspy"
+      technologies="Python"
+      image=""
+    >
+    One-stop-shop for USPORTS data.
+    </ProjectCard>
+    <ProjectCard
+    name="This Site"
+    technologies="Astro/UnoCSS"
+    image=""
+  >
+    It's gone over a couple iterations through the years. Current iteration
+    based on <a
+      href="https://github.com/Ladvace/astro-bento-portfolio"
+      style="text-decoration: underline;"
+      target="_blank">Ladvace's bento design</a
+    >.
+  </ProjectCard>
+    <ProjectCard
+      name="Lambda Calculus Interpreter"
+      technologies="Go"
+      image=""
+    >
+    Normal order reduction, variable capture avoiding, and custom expressions.
+    </ProjectCard>
+    <ProjectCard
+      name="Obelisk API and Slifer Mobile Client"
+      technologies="Go, Flask/HTML/CSS, PostgreSQL"
+      image=""
+    >
+    Personal tasks and statistics management API and mobile-first webapp.
+    </ProjectCard>
+    <ProjectCard
+      name="WatchDog"
+      technologies="Go"
+      image=""
+    >
+    CLI tool to monitor files for changes and run commands.
+    </ProjectCard>
+    <ProjectCard
+      name="G14mon"
+      technologies="Go"
+      image=""
+    >
+    CLI tool to monitor my ASUS G14's systems details.
+    </ProjectCard>
+    <ProjectCard
+    name="Jean the Generative Art Bot"
+    technologies="Python"
+    image=""
+  >
+  Twitter bot to manipulate images from Unplash algorithmically to produce generative art. NOT AI ART.
+  </ProjectCard>
+  <ProjectCard
+    name="CC3K"
+    technologies="C++"
+    image=""
+  >
+  Rogue-like dungeon crawler (for CS246).
+  </ProjectCard>
+  <ProjectCard
+    name="Canuck"
+    technologies="Java"
+    image=""
+  >
+  FRC 1305's robot for the 2020/2021 season(s).
+  </ProjectCard>
+  <ProjectCard
+    name="WLP4 Compiler"
+    technologies="C++"
+    image=""
+  >
+  Compiler for Waterloo's WLP4 language (for CS241).
+  </ProjectCard>
+  </main>
+</Layout>

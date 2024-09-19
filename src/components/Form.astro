@@ -1,0 +1,30 @@
+---
+import Card from "./Card/index.astro";
+
+interface Props {
+  rounded?: boolean;
+}
+
+const { rounded } = Astro.props;
+---
+
+<Card colSpan="md:col-span-4" rowSpan="md:row-span-4">
+  <form
+    method="post"
+    action="https://send.pageclip.co/tRArR4fhX60vYm6kpHS3sPEaApmoAZpV/contact-form"
+  >
+    <div class="flex">
+    <input
+      class="inline-block w-full text-xl mr-10 max-h-[50px] shadow-custom shadow-gray-700 active:shadow-none active:translate-x-[3px] active:translate-y-[3px] text-gray-200 px-5 py-2 border border-gray-400 bg-gray-900 cursor-pointer rounded-lg"
+      type="text"
+      name="content"
+      placeholder="Have something to share? Let me know!"
+    />
+    <input
+      class="font-serif float-right custom-btn text-xl max-h-[50px] shadow-custom shadow-primary-300 active:shadow-none active:translate-x-[3px] active:translate-y-[3px] text-gray-200 px-5 py-2 border border-primary-400 hover:text-primary-500 transition-colors duration-100 ease-in-out bg-gray-900 cursor-pointer rounded-lg"
+      type="submit"
+      value="Submit"
+    />
+    </div>
+  </form>
+</Card>

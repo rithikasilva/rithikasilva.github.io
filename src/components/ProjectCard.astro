@@ -1,0 +1,37 @@
+---
+import Card from "./Card/index.astro";
+import { Image } from "astro:assets";
+
+
+interface Props {
+    name?: string;
+    technologies?: string;
+    image?: string;
+    link?: string;
+}
+
+const {name, technologies, image, link} = Astro.props;
+---
+
+<Card colSpan="md:col-span-2" rowSpan="md:row-span-10">
+  <a href={link ? link : ""}>
+  <div class="flex w-full h-full">
+    <div class="flex flex-col justify-between gap-4">
+      <div class="flex justify-center rounded-lg w-auto">
+        <img class={`rounded-lg bg-darkslate-200 w-auto max-h-[300px] ${image ? "": "animate-pulse"}`} src={image ? image : "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png"}>
+      </div>
+      <div class="flex flex-col h-full">
+        <p class="font-normal text-xl m-0">
+            {name}
+        </p>
+        <p class="text-lg font-light text-primary-200">
+          {technologies}
+        </p>
+        <h1 class="font-light">
+          <slot />
+        </h1>
+      </div>
+    </div>
+  </div>
+</a>
+</Card>

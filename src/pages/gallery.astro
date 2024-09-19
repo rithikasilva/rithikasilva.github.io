@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets'
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+const imageFiles = await Astro.glob("../../public/static/photos/*");
+---
+
+
+<Layout title="Rithika Silva" description="">
+<Header/>
+<main class="lg:mt-20 columns-1 max-w-6xl sm:columns-2 md:columns-3 lg:columns-4 gap-3 mb-5 mx-auto w-full px-4">
+    {
+      imageFiles.map((img) => (
+        <Image
+          src={img.default}
+          width="600"
+          alt="Photo of a pizza"
+          class="mb-3 w-full rounded"
+        />
+      ))
+    }
+</main>
+</Layout>

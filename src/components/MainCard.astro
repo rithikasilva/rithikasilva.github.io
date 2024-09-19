@@ -1,0 +1,46 @@
+---
+import Card from "./Card/index.astro";
+import Button from "./Button.astro";
+import { LINKS } from "../lib/constants";
+import { Icon } from 'astro-icon/components'
+import { Image } from "astro:assets";
+import Link from "./Link.astro";
+---
+
+<Card colSpan="md:col-span-3" rowSpan="md:row-span-4">
+  <div class="flex w-full h-full">
+    <div class="flex flex-col justify-between md:max-h-[300px] gap-4">
+      <div class="flex flex-col h-full">
+        <p class="m-0 font-light text-xl">
+          Hi! I'm Rithika. I am a student studying 
+          <a class="font-normal" href="https://uwaterloo.ca/">CS @ UWaterloo<a/> 
+          with a passion for the growth mindset.
+          I enjoy learning anything I can get my hands on, 
+          but have a particular interest in: 
+          <a class="font-normal" href="https://en.wikipedia.org/wiki/Operating_syste">operating systems<a/>, 
+          <a class="font-normal" href="">compilers</a>, <a class="font-normal" href="">cybersecurity</a> and <a class="font-normal" href=""> combinatorics</a>.
+        </p>
+      </div>
+      <div class="flex gap-4">
+        <a href={LINKS.github} aria-label="github profile" target="_blank">
+          <Button aria-label="github profile">
+            <Icon name="ri:github-fill" class="h-6" />
+            <span class="sr-only">GitHub Profile</span>
+          </Button>
+        </a>
+        <a href={LINKS.linkedin} aria-label="linkedin profile" target="_blank">
+          <Button aria-label="linkedin profile">
+            <Icon name="ri:linkedin-box-fill" class="h-6" />
+            <span class="sr-only">Linkedin Profile</span>
+          </Button>
+        </a>
+        <a href={LINKS.threads} aria-label="threads profile" target="_blank">
+          <Button aria-label="threads profile">
+            <Icon name="ri:threads-fill" class="h-6" />
+            <span class="sr-only">Threads Profile</span>
+          </Button>
+        </a>
+      </div>
+    </div>
+  </div>
+</Card>
