@@ -1,26 +1,24 @@
 ---
 import Card from "./Card/index.astro";
+import { LINKS } from "../lib/constants";
 ---
 
-<Card colSpan="md:col-span-1" rowSpan="md:row-span-3" title="At a Glance">
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-3" title="Work Experience">
   <div class="flex flex-col gap-2">
     <div class="text-sm font-light">
       <p>
         Past co-ops:
       </p>
       <ul class="list-disc list-inside">
-        <li>SWE @ ???</li>
-        <li>SWE @ Huawei</li>
-        <li>SWE @ Ford</li>
-        <li>SWE @ BlackBerry</li>
-        <li>SWE @ Arctic Wolf</li>
+        <li>SWE @ <a class="hover:animate-pulse font-normal" href={LINKS.upcoming} target="_blank">???</a></li>
+        <li>SWE @ <a class="hover:animate-pulse font-normal" href={LINKS.huawei} target="_blank">Huawei</a></li>
+        <li>SWE @ <a class="hover:animate-pulse font-normal" href={LINKS.ford} target="_blank">Ford</a></li>
+        <li>SWE @ <a class="hover:animate-pulse font-normal" href={LINKS.blackberry} target="_blank">BlackBerry</a></li>
+        <li>SWE @ <a class="hover:animate-pulse font-normal" href={LINKS.arctic_wolf} target="_blank">Arctic Wolf</a></li>
       </ul>
     </div>
     <p class="text-sm font-light">
-      <!-- Some explanatory paragraph. -->
-    </p>
-    <p class="text-sm font-light">
-      <!-- Further explanatory paragraph. -->
+      I'm always on the look out for new and exciting opportunities. If you have something that might pique my interest, please let me know!
     </p>
   </div>
 </Card>
