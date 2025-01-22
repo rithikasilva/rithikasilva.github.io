@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import Header from "../components/Header.astro";
 import Card from "../components/Card/index.astro";
 import { Icon } from "astro-icon/components";
 ---
@@ -29,13 +28,12 @@ import { Icon } from "astro-icon/components";
 </script>
 
 <Layout title="Rithika Silva" description="">
-    <Header/>
-  <main class="lg:mt-20 text-white grid max-w-6xl lg:grid-cols-4 lg:gap-6">
+  <main class="mt-20 text-white grid max-w-6xl lg:grid-cols-4 gap-6">
     <ProjectCard
       name="My Dotfiles"
       link="https://github.com/rithikasilva/.dotfiles"
       technologies="Lua/Python/Bash"
-      image=""
+      image="https://github.com/rithikasilva/.dotfiles/raw/fedora/dotfiles-main.png"
     >
       Eternally changing :)
     </ProjectCard>
@@ -50,14 +48,14 @@ import { Icon } from "astro-icon/components";
     <ProjectCard
       name="Catppuccin - Blink"
       technologies="JavaScript"
-      image=""
+      image="https://github.com/catppuccin/blink/raw/main/assets/preview.jpg"
     >
       Soothing pastel theme for Blink Shell.
     </ProjectCard>
     <ProjectCard
       name="usportspy"
       technologies="Python"
-      image=""
+      image="https://github.com/uwaggs/usportspy/raw/master/usportspy.png"
     >
     One-stop-shop for USPORTS data.
     </ProjectCard>
@@ -118,7 +116,7 @@ import { Icon } from "astro-icon/components";
   <ProjectCard
     name="Canuck"
     technologies="Java"
-    image=""
+    image="https://scontent-yyz1-1.cdninstagram.com/v/t51.2885-15/89471215_863743237405021_1967581177722663984_n.jpg?stp=dst-jpg_e35_s640x640_sh0.08_tt6&_nc_ht=scontent-yyz1-1.cdninstagram.com&_nc_cat=101&_nc_ohc=-SfyKGJWFC8Q7kNvgFvOhIY&_nc_gid=67b4039f88bd41ed9dedb252b3f575a0&edm=AMO9-JQAAAAA&ccb=7-5&oh=00_AYBmSPlYGJA5CVhkHSLK-xr9cARDljiS9Dx_gtdboQbtGQ&oe=6797226A&_nc_sid=cc8940"
   >
   FRC 1305's robot for the 2020/2021 season(s).
   </ProjectCard>
