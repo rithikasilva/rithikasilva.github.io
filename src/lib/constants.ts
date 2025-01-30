@@ -3,7 +3,7 @@ export const LINKS = {
   linkedin: "https://ca.linkedin.com/in/rithika-silva-861b0818a",
   threads: "https://www.threads.net/@rithika_silva",
   discord: "https://discordapp.com/users/591292832149667860",
-  upcoming: "",
+  nvidia: "https://www.nvidia.com/en-us/",
   huawei: "https://www.huawei.com/ca/",
   ford: "https://www.ford.ca/",
   blackberry: "https://www.blackberry.com/us/en",
