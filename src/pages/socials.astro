@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card/index.astro";
+import MainCard from "../components/MainCard.astro";
+import ContactsCard from "../components/ContactsCard.astro";
+import TimeZone from "../components/TimeZoneCard.astro";
+import Context from "../components/Context.astro";
+import Spotify from "../components/Spotify.astro";
+import Form from "../components/Form.astro";
+import Content from "../components/Card/Content.astro";
+import IAm from "../components/IAm.astro"
+---
+
+<script>
+  import { stagger, spring, timeline, type TimelineDefinition } from "motion";
+  import { loaderAnimation } from "../lib/constants";
+  const cards = document.querySelectorAll(".card");
+
+  const sequence = [
+    loaderAnimation,
+    [
+      cards,
+      { y: ["40%", "0%"], opacity: [0, 1] },
+      {
+        at: "-0.1",
+        duration: 0.4,
+        delay: stagger(0.3),
+        easing: spring({ velocity: 100, stiffness: 50, damping: 10 }),
+      },
+    ],
+  ];
+
+  timeline(sequence as TimelineDefinition);
+</script>
+
+<Layout title="Rithika Silva" description="">
+  <main
+    class="text-white m-auto mt-15 p-2 grid gap-2 max-w-6xl overflow-hidden relative w-full sm:p-4 gap-7 md:p-6 lg:h-screen lg:grid-rows-4 lg:grid-cols-1 lg:max-h-[900px]"
+  >
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="LinkedIn" href="https://ca.linkedin.com/in/rithika-silva-861b0818a"/>
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Instagram" href="https://www.instagram.com/rithika_silva/"/>
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Threads" href="https://www.threads.net/@rithika_silva"/>
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Discord" href="https://discordapp.com/users/591292832149667860"/>
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="GitHub" href="https://github.com/rithikasilva"/>
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Mail" href="mailto:rithikasilva@outlook.com"/>
+  </main>
+</Layout>
