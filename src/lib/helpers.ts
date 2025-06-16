@@ -41,7 +41,7 @@ export function formatTimeForBayArea(date: Date): string {
   };
 
   let formattedTime = new Intl.DateTimeFormat("en-US", options).format(date);
-  formattedTime += " ET";
+  formattedTime += " PT";
   return formattedTime;
 }
 
