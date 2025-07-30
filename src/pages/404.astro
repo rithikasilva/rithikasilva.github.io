@@ -1,0 +1,128 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<script>
+  import { stagger, spring, timeline, type TimelineDefinition } from "motion";
+  
+  const elements = document.querySelectorAll(".animate-in");
+  
+  const sequence = [
+    [
+      elements,
+      { y: ["40%", "0%"], opacity: [0, 1] },
+      {
+        duration: 0.6,
+        delay: stagger(0.2),
+        easing: spring({ velocity: 100, stiffness: 50, damping: 10 }),
+      },
+    ],
+  ];
+
+  timeline(sequence as TimelineDefinition);
+
+  // Add some quirky interactions
+  const glitchText = document.querySelector('.glitch');
+  if (glitchText) {
+    setInterval(() => {
+      glitchText.classList.add('glitch-active');
+      setTimeout(() => {
+        glitchText.classList.remove('glitch-active');
+      }, 200);
+    }, 3000);
+  }
+</script>
+
+<Layout title="404 - Page Not Found" description="The page you're looking for doesn't exist.">
+  <main class="text-white min-h-screen flex flex-col items-center justify-center p-8 relative overflow-hidden">
+    <div class="max-w-2xl mx-auto text-center z-10">
+      <!-- 404 Number -->
+      <div class="animate-in mb-8">
+        <h1 class="text-9xl md:text-[12rem] font-bold glitch relative">
+          404
+        </h1>
+      </div>
+
+      <!-- Error message -->
+      <div class="animate-in mb-8">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          Oops! This page went on vacation
+        </h2>
+        <p class="text-xl text-gray-300 mb-6">
+          It's probably sipping a cocktail on a beach somewhere, completely ignoring your request.
+        </p>
+      </div>
+
+      <!-- Navigation buttons -->
+      <div class="animate-in flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="inline-block">
+          <Button>
+            🏠 Take me home
+          </Button>
+        </a>
+        <button 
+          onclick="window.history.back()" 
+          class="px-6 py-3 bg-transparent border border-gray-500 text-white rounded-lg hover:bg-gray-800 transition-colors duration-200"
+        >
+          ← Go back
+        </button>
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .glitch {
+    position: relative;
+  }
+  
+  .glitch::before,
+  .glitch::after {
+    content: '404';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+  
+  .glitch-active::before {
+    opacity: 0.8;
+    animation: glitch-1 0.2s ease-in-out;
+    color: #ff6b6b;
+    z-index: -1;
+  }
+  
+  .glitch-active::after {
+    opacity: 0.8;
+    animation: glitch-2 0.2s ease-in-out;
+    color: #4ecdc4;
+    z-index: -2;
+  }
+  
+  @keyframes glitch-1 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+  }
+  
+  @keyframes glitch-2 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(2px, -2px); }
+    40% { transform: translate(2px, 2px); }
+    60% { transform: translate(-2px, -2px); }
+    80% { transform: translate(-2px, 2px); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+</style>

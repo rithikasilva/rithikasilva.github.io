@@ -1,0 +1,142 @@
+---
+import Card from "./Card/index.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<!-- Coffee Counter Card -->
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="☕ Today">
+  <div class="flex flex-col justify-center">
+    <div class="text-center mb-3">
+      <div class="text-3xl font-bold mb-1 text-amber-300">
+        4
+      </div>
+      <div class="text-xs text-gray-300">
+        cups of coffee
+      </div>
+    </div>
+    <div class="text-xs text-gray-400 text-center">
+      Last: 2:30 PM
+    </div>
+  </div>
+</Card>
+
+<!-- Reading Progress Card -->
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="📖 Currently Reading">
+  <div class="flex flex-col justify-center">
+    <div class="text-sm font-medium mb-2 text-blue-300">
+      The Pragmatic Programmer
+    </div>
+    <div class="space-y-2">
+      <div class="w-full bg-darkslate-600 rounded-full h-1.5">
+        <div class="bg-blue-400 h-1.5 rounded-full w-[68%]"></div>
+      </div>
+      <div class="flex justify-between text-xs text-gray-400">
+        <span>Page 240/352</span>
+        <span>68%</span>
+      </div>
+    </div>
+  </div>
+</Card>
+
+<!-- Weather Card -->
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="🌤️ Weather">
+  <div class="flex items-center justify-between">
+    <div>
+      <div class="text-2xl font-bold mb-1">22°C</div>
+      <div class="text-xs text-gray-300">Partly Cloudy</div>
+      <div class="text-xs text-gray-400">Waterloo, ON</div>
+    </div>
+    <div class="text-3xl">⛅</div>
+  </div>
+</Card>
+
+<!-- Focus Timer Card -->
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="🍅 Focus Session">
+  <div class="flex flex-col justify-center">
+    <div class="text-center mb-3">
+      <div class="text-2xl font-bold mb-1 text-red-400">
+        23:47
+      </div>
+      <div class="text-xs text-gray-300">
+        deep work
+      </div>
+    </div>
+    <div class="flex items-center justify-center gap-1">
+      <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+      <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+      <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+      <div class="w-2 h-2 bg-gray-600 rounded-full"></div>
+    </div>
+  </div>
+</Card>
+
+<!-- Step Counter Card -->
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="👟 Steps Today">
+  <div class="flex flex-col justify-center">
+    <div class="text-center mb-2">
+      <div class="text-2xl font-bold mb-1 text-green-400">
+        7,842
+      </div>
+      <div class="text-xs text-gray-300">
+        of 10,000 goal
+      </div>
+    </div>
+    <div class="w-full bg-darkslate-600 rounded-full h-1.5">
+      <div class="bg-green-400 h-1.5 rounded-full w-[78%]"></div>
+    </div>
+  </div>
+</Card>
+
+<!-- Server Status Card -->
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="🖥️ Homelab">
+  <div class="flex flex-col justify-center space-y-2">
+    <div class="flex justify-between items-center">
+      <span class="text-xs text-gray-300">Maelstrom</span>
+      <div class="flex items-center gap-1">
+        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+        <span class="text-xs text-green-400">Online</span>
+      </div>
+    </div>
+    <div class="flex justify-between items-center">
+      <span class="text-xs text-gray-300">CPU</span>
+      <span class="text-xs text-gray-400">23%</span>
+    </div>
+    <div class="flex justify-between items-center">
+      <span class="text-xs text-gray-300">Memory</span>
+      <span class="text-xs text-gray-400">8.2/16 GB</span>
+    </div>
+  </div>
+</Card>
+
+<!-- Coding Languages Card -->
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="💻 This Week">
+  <div class="flex flex-col justify-center space-y-2">
+    <div class="flex justify-between items-center">
+      <span class="text-xs text-blue-400">TypeScript</span>
+      <span class="text-xs text-gray-400">12h 45m</span>
+    </div>
+    <div class="flex justify-between items-center">
+      <span class="text-xs text-orange-400">Rust</span>
+      <span class="text-xs text-gray-400">8h 32m</span>
+    </div>
+    <div class="flex justify-between items-center">
+      <span class="text-xs text-green-400">Go</span>
+      <span class="text-xs text-gray-400">3h 18m</span>
+    </div>
+    <div class="text-xs text-gray-500 text-center mt-1">
+      24h 35m total
+    </div>
+  </div>
+</Card>
+
+<!-- Current Location Card -->
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="📍 Location">
+  <div class="flex flex-col justify-center text-center">
+    <div class="text-lg font-bold mb-1">🏫</div>
+    <div class="text-sm font-medium mb-1">University of Waterloo</div>
+    <div class="text-xs text-gray-400">DC Library</div>
+    <div class="text-xs text-gray-500 mt-2">
+      Since 9:15 AM
+    </div>
+  </div>
+</Card>

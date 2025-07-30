@@ -1,0 +1,92 @@
+---
+import Card from "./Card/index.astro";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  colSpan?: string;
+  rowSpan?: string;
+}
+
+const { colSpan, rowSpan } = Astro.props;
+---
+
+<Card colSpan={colSpan || "md:col-span-1"} rowSpan={rowSpan || "md:row-span-1"} title="Graduation">
+  <div class="flex flex-col justify-center">
+    <div class="text-center mb-3">
+      <div class="text-2xl sm:text-3xl font-bold mb-1" id="days-count">
+        <span class="text-primary-200">---</span>
+      </div>
+      <div class="text-xs text-gray-300">
+        days until graduation
+      </div>
+    </div>
+    
+    <div class="space-y-2">
+      <div class="w-full bg-darkslate-600 rounded-full h-1.5">
+        <div 
+          class="bg-primary-200 h-1.5 rounded-full transition-all duration-1000 ease-out" 
+          id="progress-bar"
+          style="width: 0%"
+        ></div>
+      </div>
+      <div class="flex justify-between text-xs text-gray-400">
+        <span>Apr 2026</span>
+        <span id="progress-text">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updateGraduationCountdown() {
+      const graduationDate = new Date('2026-04-23T23:59:59');
+      const now = new Date();
+      
+      // Calculate days remaining
+      const timeDiff = graduationDate.getTime() - now.getTime();
+      const daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      
+      // Update days count
+      const daysElement = document.getElementById('days-count');
+      if (daysElement) {
+        if (daysRemaining > 0) {
+          daysElement.innerHTML = `<span class="text-primary-200">${daysRemaining.toLocaleString()}</span>`;
+        } else if (daysRemaining === 0) {
+          daysElement.innerHTML = `<span class="text-green-400">Today!</span>`;
+        } else {
+          daysElement.innerHTML = `<span class="text-green-400">Graduated!</span>`;
+        }
+      }
+      
+      // Calculate progress (assuming degree started September 2021 for 5-year program)
+      const startDate = new Date('2021-09-01');
+      const totalDuration = graduationDate.getTime() - startDate.getTime();
+      const elapsed = now.getTime() - startDate.getTime();
+      const progressPercent = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+      
+      // Update progress bar
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+      
+      if (progressBar && progressText) {
+        progressBar.style.width = `${progressPercent}%`;
+        progressText.textContent = `${progressPercent.toFixed(1)}% complete`;
+      }
+    }
+    
+    // Update immediately and then every hour
+    updateGraduationCountdown();
+    setInterval(updateGraduationCountdown, 3600000); // Update every hour
+    
+    // Also update daily at midnight
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    const msUntilMidnight = tomorrow.getTime() - now.getTime();
+    
+    setTimeout(() => {
+      updateGraduationCountdown();
+      setInterval(updateGraduationCountdown, 24 * 60 * 60 * 1000); // Then every 24 hours
+    }, msUntilMidnight);
+  </script>
+</Card>

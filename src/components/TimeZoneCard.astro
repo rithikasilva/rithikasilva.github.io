@@ -1,6 +1,13 @@
 ---
 import { getCurrentTimeInBayArea, formatTimeForBayArea } from "../lib/helpers";
 import Card from "./Card/index.astro";
+
+interface Props {
+  colSpan?: string;
+  rowSpan?: string;
+}
+
+const { colSpan, rowSpan } = Astro.props;
 ---
 
 <script>
@@ -28,7 +35,7 @@ import Card from "./Card/index.astro";
   });
 </script>
 
-<Card colSpan="lg:col-span-2" rowSpan="lg:row-span-2 md:row-span-1" title="Time zone">
+<Card colSpan={colSpan || "lg:col-span-2"} rowSpan={rowSpan || "lg:row-span-2 md:row-span-1"} title="Time zone">
   <div class="mt-5 flex justify-center">
     <time
     datetime=""

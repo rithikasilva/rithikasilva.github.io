@@ -1,7 +1,7 @@
 ---
 import Card from "./Card/index.astro";
 import { Image } from "astro:assets";
-
+import { Icon } from "astro-icon/components";
 
 interface Props {
     name?: string;
@@ -18,19 +18,28 @@ const {name, technologies, image, link} = Astro.props;
   <div class="flex w-full h-full">
     <div class="flex flex-col justify-between gap-1">
       <div class="flex flex-col h-full">
-        <p class="font-normal text-xl m-0">
+        <h3 class="font-bold text-2xl m-0 mb-2 group-hover:text-primary-100 transition-colors duration-200">
             {name}
-        </p>
-        <p class="text-lg font-light text-primary-200">
+        </h3>
+        <p class="text-sm font-medium text-primary-200 mb-3 uppercase tracking-wide">
           {technologies}
         </p>
-        <h1 class="font-light mr-2">
+        <p class="font-light text-base leading-relaxed text-gray-300 mr-2">
           <slot />
-        </h1>
+        </p>
       </div>
     </div>
-    <img src={image ? image : "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png"}
-    class="rounded-lg w-25 h-25 aspect-square ml-auto self-center outline-none bg-darkslate-200 object-cover">
+    <div class="ml-auto self-center flex-shrink-0">
+      {image ? (
+        <img src={image} 
+        class="rounded-lg w-20 h-20 aspect-square outline-none bg-darkslate-200 object-cover" 
+        alt={`${name} preview`} />
+      ) : (
+        <div class="rounded-lg w-20 h-20 aspect-square bg-darkslate-300 flex items-center justify-center">
+          <Icon name="ri:code-box-line" class="h-8 w-8 text-gray-400" />
+        </div>
+      )}
+    </div>
   </div>
   </a>
 </Card>

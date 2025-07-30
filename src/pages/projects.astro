@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import Card from "../components/Card/index.astro";
+import Button from "../components/Button.astro";
 import { Icon } from "astro-icon/components";
 ---
 
@@ -27,8 +28,11 @@ import { Icon } from "astro-icon/components";
   timeline(sequence as TimelineDefinition);
 </script>
 
-<Layout title="Rithika Silva" description="">
-  <main class="mt-20 text-white grid max-w-6xl lg:grid-cols-4 gap-6">
+<Layout title="Rithika Silva - Projects" description="">
+  <main class="mt-20 text-white max-w-6xl mx-auto p-6">
+    <a href="/" class="text-gray-400 hover:text-gray-100 mb-8 inline-block">&larr; Back</a>
+    <h1 class="text-4xl font-bold mb-8">Projects</h1>
+    <div class="grid lg:grid-cols-4 gap-6">
     <ProjectCard
       name="My Dotfiles"
       link="https://github.com/rithikasilva/.dotfiles"
@@ -105,5 +109,6 @@ import { Icon } from "astro-icon/components";
   >
   Compiler for Waterloo's WLP4 language (for CS241).
   </ProjectCard>
+    </div>
   </main>
 </Layout>
