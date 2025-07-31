@@ -34,6 +34,41 @@ import GraduationCard from "../components/GraduationCard.astro";
   timeline(sequence as TimelineDefinition);
 </script>
 
+<style is:global>
+  .card.live-stats-shine {
+    position: relative;
+    animation: occasional-highlight 12s ease-in-out infinite;
+  }
+  
+  .card.live-stats-shine::before {
+    content: '●';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: #10b981;
+    font-size: 8px;
+    z-index: 10;
+    opacity: 0.4;
+  }
+  
+  @keyframes occasional-highlight {
+    0%, 85%, 100% { 
+      /* Normal state - no overrides */
+    }
+    90%, 95% { 
+      border-color: #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+    }
+  }
+  
+  /* Preserve hover effects */
+  .card.live-stats-shine:hover {
+    border-color: #f43f5e !important;
+    box-shadow: 0 0 2rem rgba(244, 63, 94, 0.2) !important;
+    transform: scale(1.02) !important;
+  }
+</style>
+
 <Layout title="Rithika Silva" description="">
   <main
     class="text-white m-auto p-2 grid gap-2 max-w-6xl relative w-full sm:p-4 sm:gap-2  md:gap-3 md:p-6 lg:grid-rows-8 lg:grid-cols-4 lg:gap-4 lg:max-h-[800px]"
@@ -45,9 +80,9 @@ import GraduationCard from "../components/GraduationCard.astro";
     <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Gallery" href="gallery" />
     <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Projects" href="projects"/>
     <IAm colSpan="md:col-span-1" rowSpan="md:row-span-2 flex gap-4" />
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Now" href="now"/>
     <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Uses" href="uses"/>
-    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Live Stats" href="live"/>
-    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Blog" href="https://rithikasilva.ca/b.log-/"/>
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Live Stats" href="live" class="live-stats-shine"/>
     <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" title="Resume" href="static/resume.pdf"/>
   </main>
 </Layout>
