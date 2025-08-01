@@ -27,7 +27,7 @@ const { title, description, slug, frontmatter } = Astro.props;
     <title>{title}</title>
     <link rel="preconnect" href="https://cdn.fontshare.com" />
   </head>
-  <body class="bg-darkslate-700 md:h-screen flex flex-col items-center relative overflow-hidden">
+  <body class="bg-darkslate-700 md:h-screen flex flex-col items-center relative md:overflow-hidden">
     <div class="background-animation"></div>
     <slot name="loader" />
     <slot />
