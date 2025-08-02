@@ -5,6 +5,7 @@ import GraduationCard from "../components/GraduationCard.astro";
 import Spotify from "../components/Spotify.astro";
 import TimeZone from "../components/TimeZoneCard.astro";
 import LastUpdateCard from "../components/LastUpdateCard.astro";
+import DotfilesCard from "../components/DotfilesCard.astro";
 import Card from "../components/Card/index.astro";
 ---
 
@@ -39,10 +40,9 @@ import Card from "../components/Card/index.astro";
     <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6">
       <!-- Real working cards -->
       <GraduationCard />
-      <Spotify colSpan="md:col-span-1" rowSpan="md:row-span-1" />
+      <Spotify colSpan="md:col-span-2" rowSpan="md:row-span-1" />
       <TimeZone colSpan="md:col-span-2" rowSpan="md:row-span-1" />
-      
-      <!-- New live stat cards -->
+      <DotfilesCard colSpan="md:col-span-1" rowSpan="md:row-span-1" />
       <LastUpdateCard colSpan="md:col-span-1" rowSpan="md:row-span-1" />
 
       <!-- Ghost card placeholder -->

@@ -10,17 +10,21 @@ const { colSpan, rowSpan } = Astro.props;
 ---
 
 <Card colSpan={colSpan || "md:col-span-1"} rowSpan={rowSpan || "md:row-span-1"} title="Website Updated">
-  <div class="flex flex-col justify-center">
-    <div class="text-center mb-3">
-      <div class="text-2xl sm:text-3xl font-bold mb-1 text-primary-200" id="days-since-update">
+  <div class="flex items-center justify-between h-full">
+    <div class="text-left">
+      <div class="text-xs text-gray-400 mb-1">Last commit</div>
+      <div class="text-sm text-gray-300 mb-1" id="last-commit-date">
+        Loading...
+      </div>
+      <a href="#" class="text-xs text-primary-300 hover:text-primary-200 transition-colors duration-200 font-mono" id="commit-hash" target="_blank">
+        Loading...
+      </a>
+    </div>
+    <div class="text-right">
+      <div class="text-3xl font-bold text-primary-200" id="days-since-update">
         --
       </div>
-      <div class="text-xs text-gray-300">
-        days ago
-      </div>
-    </div>
-    <div class="text-xs text-gray-400 text-center" id="last-commit-date">
-      Loading...
+      <div class="text-xs text-gray-400 mt-1" id="days-label">days ago</div>
     </div>
   </div>
 
@@ -35,6 +39,7 @@ const { colSpan, rowSpan } = Astro.props;
         })
         .then(data => {
           const lastCommit = new Date(data[0].commit.committer.date);
+          const commitSha = data[0].sha;
           const now = new Date();
           
           // Calculate days difference using date objects (ignoring time)
@@ -44,8 +49,12 @@ const { colSpan, rowSpan } = Astro.props;
           
           // Update days count
           const daysElement = document.getElementById('days-since-update');
+          const daysLabel = document.getElementById('days-label');
           if (daysElement) {
             daysElement.textContent = daysSince.toString();
+          }
+          if (daysLabel) {
+            daysLabel.textContent = daysSince === 1 ? 'day ago' : 'days ago';
           }
           
           // Update commit date
@@ -57,14 +66,23 @@ const { colSpan, rowSpan } = Astro.props;
               year: 'numeric'
             });
           }
+          
+          // Update commit hash with link
+          const hashElement = document.getElementById('commit-hash');
+          if (hashElement) {
+            hashElement.textContent = commitSha.substring(0, 7);
+            hashElement.href = `https://github.com/rithikasilva/rithikasilva.github.io/commit/${commitSha}`;
+          }
         })
         .catch(error => {
           console.error('Error fetching commit data:', error);
           const daysElement = document.getElementById('days-since-update');
           const dateElement = document.getElementById('last-commit-date');
+          const hashElement = document.getElementById('commit-hash');
           
           if (daysElement) daysElement.textContent = '?';
           if (dateElement) dateElement.textContent = 'Unable to load';
+          if (hashElement) hashElement.textContent = 'Error';
         });
     }
     
