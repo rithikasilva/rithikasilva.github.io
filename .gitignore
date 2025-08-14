@@ -7,4 +7,6 @@ node_modules/
 # logs
 npm-debug.log*
 
-TODO.md
+# macOS files
+.DS_Store
+.DS_Store?
