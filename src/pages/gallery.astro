@@ -11,8 +11,94 @@ const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(
   <script src="https://unpkg.com/alpinejs" defer></script>
 
   <div 
-    x-data="{ showModal: false, modalSrc: '' }" 
-    @keydown.escape.window="showModal = false"
+    x-data="{ 
+      showModal: false, 
+      modalSrc: '', 
+      currentIndex: 0, 
+      images: [],
+      isMobile: window.innerWidth < 768,
+      isZoomed: false,
+      zoomLevel: 1,
+      panX: 0,
+      panY: 0,
+      init() {
+        this.images = Array.from(document.querySelectorAll('[data-image-src]')).map(el => el.dataset.imageSrc);
+        window.addEventListener('resize', () => {
+          this.isMobile = window.innerWidth < 768;
+        });
+      },
+      openModal(src, index) {
+        this.modalSrc = src;
+        this.currentIndex = index;
+        this.showModal = true;
+        this.resetZoom();
+        document.body.style.overflow = 'hidden';
+      },
+      closeModal() {
+        this.showModal = false;
+        this.resetZoom();
+        document.body.style.overflow = '';
+      },
+      nextImage() {
+        if (this.currentIndex < this.images.length - 1) {
+          this.currentIndex++;
+          this.modalSrc = this.images[this.currentIndex];
+          this.resetZoom();
+        }
+      },
+      prevImage() {
+        if (this.currentIndex > 0) {
+          this.currentIndex--;
+          this.modalSrc = this.images[this.currentIndex];
+          this.resetZoom();
+        }
+      },
+      toggleZoom(event) {
+        if (this.isMobile) return;
+        
+        if (!this.isZoomed) {
+          this.zoomLevel = 2;
+          this.isZoomed = true;
+          // Center zoom on click position
+          const rect = event.target.getBoundingClientRect();
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const clickX = event.clientX - rect.left;
+          const clickY = event.clientY - rect.top;
+          this.panX = (centerX - clickX) * this.zoomLevel;
+          this.panY = (centerY - clickY) * this.zoomLevel;
+        } else {
+          this.resetZoom();
+        }
+      },
+      resetZoom() {
+        this.isZoomed = false;
+        this.zoomLevel = 1;
+        this.panX = 0;
+        this.panY = 0;
+      },
+      handleScroll(event) {
+        if (!this.isZoomed || this.isMobile) return;
+        
+        event.preventDefault();
+        
+        const scrollSpeed = 2;
+        const deltaX = event.deltaX * scrollSpeed;
+        const deltaY = event.deltaY * scrollSpeed;
+        
+        // Invert scroll direction for more natural panning
+        this.panX -= deltaX;
+        this.panY -= deltaY;
+        
+        // Optional: Add boundaries to prevent panning too far
+        const maxPan = 200;
+        this.panX = Math.max(-maxPan, Math.min(maxPan, this.panX));
+        this.panY = Math.max(-maxPan, Math.min(maxPan, this.panY));
+      }
+    }" 
+    @keydown.escape.window="closeModal()"
+    @keydown.arrow-right.window="nextImage()"
+    @keydown.arrow-left.window="prevImage()"
   >
     <div class="max-w-6xl mx-auto w-full px-4 mt-5 mb-5">
       <a href="/" class="inline-block">
@@ -20,22 +106,45 @@ const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(
       </a>
     </div>
 
-    <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-w-6xl mx-auto w-full px-4 mb-5">
+    <!-- Mobile Gallery (single column) -->
+    <main class="md:hidden max-w-lg mx-auto w-full px-4 mb-5 space-y-4">
       {
-        sortedImages.map((img) => (
+        sortedImages.map((img, index) => (
+          <div 
+            class="relative cursor-pointer overflow-hidden rounded-lg shadow-lg"
+            data-image-src={img.default.src}
+            @click={`openModal('${img.default.src}', ${index})`}
+          >
+            <Image
+              src={img.default}
+              width="800"
+              alt="Photo"
+              class="w-full h-auto object-cover transition-transform duration-200 active:scale-95"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-0 active:bg-opacity-10 transition-all duration-200"></div>
+          </div>
+        ))
+      }
+    </main>
+
+    <!-- Desktop Gallery (grid) -->
+    <main class="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 max-w-6xl mx-auto w-full px-4 mb-5">
+      {
+        sortedImages.map((img, index) => (
           <div 
             class="relative group cursor-pointer overflow-hidden"
-            @click={`modalSrc = '${img.default.src}'; showModal = true`}
+            data-image-src={img.default.src}
+            @click={`openModal('${img.default.src}', ${index})`}
           >
             <Image
               src={img.default}
               width="600"
               alt="Photo"
-              class="w-full sm:aspect-square object-cover rounded transition-transform duration-200 group-hover:scale-105"
+              class="w-full aspect-square object-cover rounded transition-transform duration-200 group-hover:scale-105"
             />
-            <div class="hidden sm:flex items-center justify-center absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <div class="flex items-center justify-center absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553 4.553a.5.5 0 010 .707L15 20M9 14l-4.553-4.553a.5.5 0 010-.707L9 4" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
           </div>
@@ -43,19 +152,112 @@ const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(
       }
     </main>
 
+    <!-- Enhanced Modal with Navigation -->
     <div 
       x-show="showModal" 
       x-transition 
-      class="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center"
-      @click.self="showModal = false"
+      class="fixed inset-0 z-50 bg-black bg-opacity-95 flex items-center justify-center p-4"
+      @click.self="closeModal()"
+      @touchstart="startX = $event.touches[0].clientX"
+      @touchend="
+        endX = $event.changedTouches[0].clientX;
+        if (Math.abs(endX - startX) > 50) {
+          if (endX < startX) nextImage();
+          else prevImage();
+        }
+      "
+      x-data="{ startX: 0, endX: 0 }"
     >
-      <img :src="modalSrc" class="max-w-full max-h-full rounded shadow-lg" />
+      <!-- Image Container with proper spacing for controls -->
+      <div class="relative w-full h-full flex items-center justify-center overflow-hidden">
+        <!-- Main image with zoom functionality -->
+        <img 
+          :src="modalSrc" 
+          class="max-w-full max-h-full object-contain transition-transform duration-300 ease-out select-none"
+          :class="{ 'cursor-zoom-in': !isZoomed && !isMobile, 'cursor-zoom-out': isZoomed && !isMobile }"
+          :style="`
+            max-height: calc(100vh - 8rem); 
+            transform: scale(${zoomLevel}) translate(${panX}px, ${panY}px);
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+          `"
+          @click="toggleZoom($event)"
+          @wheel="handleScroll($event)"
+          @dragstart.prevent
+        />
+        
+      </div>
+      
+      <!-- Mobile Controls (outside image container) -->
+      <div class="md:hidden absolute inset-x-4 bottom-6 flex justify-between items-center text-white z-10">
+        <button 
+          @click="prevImage()"
+          :disabled="currentIndex === 0"
+          class="bg-black bg-opacity-70 rounded-full p-3 disabled:opacity-30 backdrop-blur-sm"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        
+        <div class="bg-black bg-opacity-70 rounded-full px-4 py-2 text-sm backdrop-blur-sm">
+          <span x-text="currentIndex + 1"></span> / <span x-text="images.length"></span>
+        </div>
+        
+        <button 
+          @click="nextImage()"
+          :disabled="currentIndex === images.length - 1"
+          class="bg-black bg-opacity-70 rounded-full p-3 disabled:opacity-30 backdrop-blur-sm"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Desktop Navigation -->
       <button 
-        class="absolute top-4 right-4 text-white text-3xl font-bold"
-        @click="showModal = false"
+        @click="prevImage()"
+        :disabled="currentIndex === 0"
+        class="hidden md:block absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 rounded-full p-3 text-white disabled:opacity-30 transition-all"
       >
-        X
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
       </button>
+
+      <button 
+        @click="nextImage()"
+        :disabled="currentIndex === images.length - 1"
+        class="hidden md:block absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 rounded-full p-3 text-white disabled:opacity-30 transition-all"
+      >
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <!-- Close Button -->
+      <button 
+        class="absolute top-4 right-4 bg-black bg-opacity-50 hover:bg-opacity-70 rounded-full p-2 text-white transition-all"
+        @click="closeModal()"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Desktop Counter and Zoom Info -->
+      <div class="hidden md:block absolute top-4 left-4 bg-black bg-opacity-70 rounded-full px-4 py-2 text-white text-sm backdrop-blur-sm">
+        <span x-text="currentIndex + 1"></span> / <span x-text="images.length"></span>
+        <span x-show="isZoomed" class="ml-2 text-xs opacity-75">• Zoomed</span>
+      </div>
+      
+      <!-- Zoom Instructions (Desktop only) -->
+      <div x-show="!isZoomed && !isMobile" class="hidden md:block absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 rounded-full px-3 py-1 text-white text-xs backdrop-blur-sm opacity-75">
+        Click to zoom • Scroll to pan when zoomed
+      </div>
     </div>
   </div>
 </Layout>
