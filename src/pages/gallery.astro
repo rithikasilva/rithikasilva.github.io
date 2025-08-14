@@ -22,7 +22,14 @@ const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(
       panX: 0,
       panY: 0,
       init() {
-        this.images = Array.from(document.querySelectorAll('[data-image-src]')).map(el => el.dataset.imageSrc);
+        // Get unique images from only the visible gallery (to avoid counting duplicates)
+        const visibleImages = Array.from(document.querySelectorAll('[data-image-src]'))
+          .filter(el => !el.closest('.hidden'))
+          .map(el => el.dataset.imageSrc);
+        
+        // Remove duplicates and store
+        this.images = [...new Set(visibleImages)];
+        
         window.addEventListener('resize', () => {
           this.isMobile = window.innerWidth < 768;
         });
