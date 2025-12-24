@@ -1,69 +1,179 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 
 const imageFiles = await Astro.glob("../../public/static/photos/*");
-const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(a.default.src)); 
+const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(a.default.src));
+
+// Generate optimized preview versions (1920px width) at build time
+const imagesWithOptimized = await Promise.all(
+  sortedImages.map(async (img) => {
+    const optimized = await getImage({
+      src: img.default,
+      width: 1920,
+      format: 'jpg',
+      quality: 85
+    });
+    return {
+      original: img.default.src,
+      optimized: optimized.src,
+      img: img.default
+    };
+  })
+);
 ---
 
 <Layout title="Rithika Silva" description="">
   <script src="https://unpkg.com/alpinejs" defer></script>
 
-  <div 
-    x-data="{ 
-      showModal: false, 
-      modalSrc: '', 
-      currentIndex: 0, 
+  <div
+    x-data="{
+      showModal: false,
+      modalSrc: '',
+      highResSrc: '',
+      isHighResLoaded: false,
+      currentIndex: 0,
       images: [],
       isMobile: window.innerWidth < 768,
       isZoomed: false,
       zoomLevel: 1,
       panX: 0,
       panY: 0,
+      preloadCache: new Map(),
+      highResCache: new Map(),
       init() {
-        // Get unique images from only the visible gallery (to avoid counting duplicates)
-        const visibleImages = Array.from(document.querySelectorAll('[data-image-src]'))
-          .filter(el => !el.closest('.hidden'))
-          .map(el => el.dataset.imageSrc);
-        
-        // Remove duplicates and store
-        this.images = [...new Set(visibleImages)];
-        
+        // Get image data with both optimized and original paths
+        const imageElements = Array.from(document.querySelectorAll('[data-image-optimized]'))
+          .filter(el => !el.closest('.hidden'));
+
+        this.images = imageElements.map(el => ({
+          optimized: el.dataset.imageOptimized,
+          original: el.dataset.imageOriginal
+        }));
+
         window.addEventListener('resize', () => {
           this.isMobile = window.innerWidth < 768;
         });
       },
-      openModal(src, index) {
-        this.modalSrc = src;
+      openModal(optimizedSrc, originalSrc, index) {
         this.currentIndex = index;
+        this.modalSrc = optimizedSrc; // Load optimized version first
+        this.highResSrc = originalSrc;
+        this.isHighResLoaded = false;
         this.showModal = true;
         this.resetZoom();
         document.body.style.overflow = 'hidden';
+
+        // Load high-res in background
+        this.loadHighRes(originalSrc);
+
+        // Preload adjacent images (±2 in each direction)
+        this.preloadAdjacent();
       },
       closeModal() {
         this.showModal = false;
         this.resetZoom();
         document.body.style.overflow = '';
+        // Clear some cache to free memory (keep recent ones)
+        if (this.preloadCache.size > 10) {
+          this.preloadCache.clear();
+        }
+      },
+      loadHighRes(src) {
+        // Check if already cached
+        if (this.highResCache.has(src)) {
+          this.isHighResLoaded = true;
+          return;
+        }
+
+        const img = new Image();
+        img.onload = () => {
+          this.highResCache.set(src, true);
+          // Only update if this is still the current image
+          if (this.highResSrc === src) {
+            this.isHighResLoaded = true;
+            // If zoomed, swap to high-res immediately
+            if (this.isZoomed) {
+              this.modalSrc = src;
+            }
+          }
+        };
+        img.src = src;
+      },
+      preloadAdjacent() {
+        const indicesToPreload = [];
+
+        // Preload ±2 images
+        for (let offset = -2; offset <= 2; offset++) {
+          if (offset === 0) continue; // Skip current image
+          const idx = this.currentIndex + offset;
+          if (idx >= 0 && idx < this.images.length) {
+            indicesToPreload.push(idx);
+          }
+        }
+
+        indicesToPreload.forEach(idx => {
+          const imgData = this.images[idx];
+
+          // Preload optimized version
+          if (!this.preloadCache.has(imgData.optimized)) {
+            const optimizedImg = new Image();
+            optimizedImg.src = imgData.optimized;
+            this.preloadCache.set(imgData.optimized, true);
+          }
+
+          // Preload high-res version
+          if (!this.highResCache.has(imgData.original)) {
+            const highResImg = new Image();
+            highResImg.src = imgData.original;
+            highResImg.onload = () => {
+              this.highResCache.set(imgData.original, true);
+            };
+          }
+        });
       },
       nextImage() {
         if (this.currentIndex < this.images.length - 1) {
           this.currentIndex++;
-          this.modalSrc = this.images[this.currentIndex];
+          const imgData = this.images[this.currentIndex];
+          this.modalSrc = imgData.optimized;
+          this.highResSrc = imgData.original;
+          this.isHighResLoaded = this.highResCache.has(imgData.original);
           this.resetZoom();
+
+          if (!this.isHighResLoaded) {
+            this.loadHighRes(imgData.original);
+          }
+
+          this.preloadAdjacent();
         }
       },
       prevImage() {
         if (this.currentIndex > 0) {
           this.currentIndex--;
-          this.modalSrc = this.images[this.currentIndex];
+          const imgData = this.images[this.currentIndex];
+          this.modalSrc = imgData.optimized;
+          this.highResSrc = imgData.original;
+          this.isHighResLoaded = this.highResCache.has(imgData.original);
           this.resetZoom();
+
+          if (!this.isHighResLoaded) {
+            this.loadHighRes(imgData.original);
+          }
+
+          this.preloadAdjacent();
         }
       },
       toggleZoom(event) {
         if (this.isMobile) return;
-        
+
         if (!this.isZoomed) {
+          // Switch to high-res when zooming (if available)
+          if (this.isHighResLoaded) {
+            this.modalSrc = this.highResSrc;
+          }
+
           this.zoomLevel = 2;
           this.isZoomed = true;
           // Center zoom on click position
@@ -116,14 +226,15 @@ const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(
     <!-- Mobile Gallery (single column) -->
     <main class="md:hidden max-w-lg mx-auto w-full px-4 mb-5 space-y-4">
       {
-        sortedImages.map((img, index) => (
-          <div 
+        imagesWithOptimized.map((imgData, index) => (
+          <div
             class="relative cursor-pointer overflow-hidden rounded-lg shadow-lg"
-            data-image-src={img.default.src}
-            @click={`openModal('${img.default.src}', ${index})`}
+            data-image-optimized={imgData.optimized}
+            data-image-original={imgData.original}
+            @click={`openModal('${imgData.optimized}', '${imgData.original}', ${index})`}
           >
             <Image
-              src={img.default}
+              src={imgData.img}
               width="800"
               alt="Photo"
               class="w-full h-auto object-cover transition-transform duration-200 active:scale-95"
@@ -137,14 +248,15 @@ const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(
     <!-- Desktop Gallery (grid) -->
     <main class="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 max-w-6xl mx-auto w-full px-4 mb-5">
       {
-        sortedImages.map((img, index) => (
-          <div 
+        imagesWithOptimized.map((imgData, index) => (
+          <div
             class="relative group cursor-pointer overflow-hidden"
-            data-image-src={img.default.src}
-            @click={`openModal('${img.default.src}', ${index})`}
+            data-image-optimized={imgData.optimized}
+            data-image-original={imgData.original}
+            @click={`openModal('${imgData.optimized}', '${imgData.original}', ${index})`}
           >
             <Image
-              src={img.default}
+              src={imgData.img}
               width="600"
               alt="Photo"
               class="w-full aspect-square object-cover rounded transition-transform duration-200 group-hover:scale-105"
@@ -199,7 +311,7 @@ const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(
       
       <!-- Mobile Controls (outside image container) -->
       <div class="md:hidden absolute inset-x-4 bottom-6 flex justify-between items-center text-white z-10">
-        <button 
+        <button
           @click="prevImage()"
           :disabled="currentIndex === 0"
           class="bg-black bg-opacity-70 rounded-full p-3 disabled:opacity-30 backdrop-blur-sm"
@@ -208,12 +320,18 @@ const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        
-        <div class="bg-black bg-opacity-70 rounded-full px-4 py-2 text-sm backdrop-blur-sm">
-          <span x-text="currentIndex + 1"></span> / <span x-text="images.length"></span>
+
+        <div class="bg-black bg-opacity-70 rounded-full px-4 py-2 text-sm backdrop-blur-sm flex items-center gap-2">
+          <span><span x-text="currentIndex + 1"></span> / <span x-text="images.length"></span></span>
+          <span x-show="!isHighResLoaded" class="flex items-center">
+            <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </span>
         </div>
-        
-        <button 
+
+        <button
           @click="nextImage()"
           :disabled="currentIndex === images.length - 1"
           class="bg-black bg-opacity-70 rounded-full p-3 disabled:opacity-30 backdrop-blur-sm"
@@ -259,6 +377,15 @@ const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(
       <div class="hidden md:block absolute top-4 left-4 bg-black bg-opacity-70 rounded-full px-4 py-2 text-white text-sm backdrop-blur-sm">
         <span x-text="currentIndex + 1"></span> / <span x-text="images.length"></span>
         <span x-show="isZoomed" class="ml-2 text-xs opacity-75">• Zoomed</span>
+        <span x-show="!isHighResLoaded" class="ml-2 text-xs opacity-75 flex items-center gap-1">
+          •
+          <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Loading HD
+        </span>
+        <span x-show="isHighResLoaded" class="ml-2 text-xs opacity-75">• HD Ready</span>
       </div>
       
       <!-- Zoom Instructions (Desktop only) -->
