@@ -1,7 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Button from "../components/Button.astro";
-import { Icon } from "astro-icon/components";
 ---
 
 <script>
@@ -48,26 +46,18 @@ import { Icon } from "astro-icon/components";
       <!-- Error message -->
       <div class="animate-in mb-8">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">
-          Oops! This page went on vacation
+          Page Not Found
         </h2>
         <p class="text-xl text-gray-300 mb-6">
-          It's probably sipping a cocktail on a beach somewhere, completely ignoring your request.
+          Either you took a wrong turn, or I forgot to build this page. Probably the latter.
         </p>
       </div>
 
       <!-- Navigation buttons -->
       <div class="animate-in flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/" class="inline-block">
-          <Button>
-            🏠 Take me home
-          </Button>
+        <a href="/" class="text-gray-100 hover:text-white hover:font-semibold text-xl">
+          ← Back to Home
         </a>
-        <button 
-          onclick="window.history.back()" 
-          class="px-6 py-3 bg-transparent border border-gray-500 text-white rounded-lg hover:bg-gray-800 transition-colors duration-200"
-        >
-          ← Go back
-        </button>
       </div>
 
     </div>

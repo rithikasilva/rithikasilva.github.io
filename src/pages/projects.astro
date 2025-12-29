@@ -1,114 +1,33 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import Card from "../components/Card/index.astro";
-import Button from "../components/Button.astro";
-import { Icon } from "astro-icon/components";
 ---
 
-<script>
-  import { stagger, spring, timeline, type TimelineDefinition } from "motion";
-  import { loaderAnimation } from "../lib/constants";
-  const cards = document.querySelectorAll(".card");
-
-  const sequence = [
-    loaderAnimation,
-    [
-      cards,
-      { y: ["40%", "0%"], opacity: [0, 1] },
-      {
-        at: "-0.1",
-        duration: 0.4,
-        delay: stagger(0.3),
-        easing: spring({ velocity: 100, stiffness: 50, damping: 10 }),
-      },
-    ],
-  ];
-
-  timeline(sequence as TimelineDefinition);
-</script>
-
-<Layout title="Rithika Silva - Projects" description="">
-  <main class="mt-20 text-white max-w-6xl mx-auto p-6">
+<Layout title="Rithika Silva - Projects" description="Things I've built and contributed to">
+  <main class="mt-20 text-white max-w-4xl mx-auto p-6">
     <a href="/" class="text-gray-400 hover:text-gray-100 mb-8 inline-block">&larr; Back</a>
     <h1 class="text-4xl font-bold mb-8">Projects</h1>
-    <div class="grid lg:grid-cols-4 gap-6">
-    <ProjectCard
-      name="My Dotfiles"
-      link="https://github.com/rithikasilva/.dotfiles"
-      technologies="Lua/Python/Bash"
-      image=""
-    >
-      Eternally changing :)
-    </ProjectCard>
-    <ProjectCard
-      name="README Profile LoL Stats"
-      link="https://github.com/rithikasilva/readme-lol-stats"
-      technologies="Python"
-      image="/static/project-assets/lol-stats.jpg"
-    >
-      GitHub Action to display your League of Legends statistics on your README.
-      profile
-    </ProjectCard>
-    <ProjectCard
-      name="Catppuccin - Blink"
-      link="https://github.com/catppuccin/blink"
-      technologies="JavaScript"
-      image="https://github.com/catppuccin/blink/raw/main/assets/preview.jpg"
-    >
-      Soothing pastel theme for Blink Shell.
-    </ProjectCard>
-    <ProjectCard
-      name="usportspy"
-      link="https://github.com/uwaggs/usportspy"
-      technologies="Python"
-      image="https://raw.githubusercontent.com/uwaggs/usportspy/master/usportspy.svg"
-    >
-    One-stop-shop for USPORTS data.
-    </ProjectCard>
-    <ProjectCard
-      name="Lambda Calculus Interpreter"
-      link="https://github.com/rithikasilva/go-lambda-calc"
-      technologies="Go"
-      image="/static/project-assets/lambda-calc.png"
-    >
-    Normal order reduction, variable capture avoiding, and custom expressions.
-    </ProjectCard>
-    <ProjectCard
-      name="Obelisk API and Slifer Mobile Client"
-      technologies="Go, Flask/HTML/CSS, PostgreSQL"
-      image=""
-    >
-    Personal tasks and statistics management API and mobile-first webapp.
-    </ProjectCard>
-    <ProjectCard
-    name="Jean the Generative Art Bot"
-    technologies="Python"
-    image="/static/project-assets/jean.JPG"
-  >
-  Twitter bot to manipulate images from Unplash algorithmically to produce generative art. NOT AI ART.
-  </ProjectCard>
-  <ProjectCard
-    name="CC3K"
-    technologies="C++"
-    image=""
-  >
-  Rogue-like dungeon crawler (for CS246).
-  </ProjectCard>
-  <ProjectCard
-    name="Canuck"
-    technologies="Java"
-    image="/static/project-assets/canuck.jpg"
-  >
-  FRC 1305's robot for the 2020/2021 season(s).
-  </ProjectCard>
-  <ProjectCard
-    name="WLP4 Compiler"
-    technologies="C++"
-    image=""
-  >
-  Compiler for Waterloo's WLP4 language (for CS241).
-  </ProjectCard>
-    </div>
+
+    <ul class="space-y-4">
+      <li>
+        <a href="https://github.com/rithikasilva/.dotfiles" target="_blank" class="text-gray-100 hover:text-white text-lg underline">My Dotfiles</a>
+        <p class="text-gray-300 mt-1">Eternally changing :)</p>
+      </li>
+      <li>
+        <a href="https://github.com/uwaggs/usportspy" target="_blank" class="text-gray-100 hover:text-white text-lg underline">usportspy</a>
+        <p class="text-gray-300 mt-1">One-stop-shop for USPORTS data.</p>
+      </li>
+      <li>
+        <a href="https://github.com/catppuccin/blink" target="_blank" class="text-gray-100 hover:text-white text-lg underline">Catppuccin - Blink</a>
+        <p class="text-gray-300 mt-1">Soothing pastel theme for Blink Shell.</p>
+      </li>
+      <li>
+        <a href="https://github.com/rithikasilva/readme-lol-stats" target="_blank" class="text-gray-100 hover:text-white text-lg underline">README Profile LoL Stats</a>
+        <p class="text-gray-300 mt-1">GitHub Action to display your League of Legends statistics on your README profile.</p>
+      </li>
+      <li>
+        <a href="https://github.com/rithikasilva/go-lambda-calc" target="_blank" class="text-gray-100 hover:text-white text-lg underline">Lambda Calculus Interpreter</a>
+        <p class="text-gray-300 mt-1">Normal order reduction, variable capture avoiding, and custom expressions.</p>
+      </li>
+    </ul>
   </main>
 </Layout>
