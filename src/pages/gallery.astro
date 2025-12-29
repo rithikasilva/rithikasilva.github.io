@@ -1,14 +1,21 @@
 ---
 import { Image, getImage } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import Button from '../components/Button.astro';
 
 const imageFiles = await Astro.glob("../../public/static/photos/*");
 const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(a.default.src));
 
-// Generate optimized preview versions (1920px width) at build time
+// Generate optimized versions at build time
 const imagesWithOptimized = await Promise.all(
   sortedImages.map(async (img) => {
+    // Small thumbnail for grid (fast loading)
+    const thumbnail = await getImage({
+      src: img.default,
+      width: 600,
+      format: 'jpg',
+      quality: 80
+    });
+    // Medium preview for modal (1920px width)
     const optimized = await getImage({
       src: img.default,
       width: 1920,
@@ -18,13 +25,16 @@ const imagesWithOptimized = await Promise.all(
     return {
       original: img.default.src,
       optimized: optimized.src,
-      img: img.default
+      thumbnail: thumbnail.src
     };
   })
 );
 ---
 
 <Layout title="Rithika Silva" description="">
+  <style>
+    [x-cloak] { display: none !important; }
+  </style>
   <script src="https://unpkg.com/alpinejs" defer></script>
 
   <div
@@ -35,11 +45,6 @@ const imagesWithOptimized = await Promise.all(
       isHighResLoaded: false,
       currentIndex: 0,
       images: [],
-      isMobile: window.innerWidth < 768,
-      isZoomed: false,
-      zoomLevel: 1,
-      panX: 0,
-      panY: 0,
       preloadCache: new Map(),
       highResCache: new Map(),
       init() {
@@ -51,21 +56,16 @@ const imagesWithOptimized = await Promise.all(
           optimized: el.dataset.imageOptimized,
           original: el.dataset.imageOriginal
         }));
-
-        window.addEventListener('resize', () => {
-          this.isMobile = window.innerWidth < 768;
-        });
       },
       openModal(optimizedSrc, originalSrc, index) {
         this.currentIndex = index;
-        this.modalSrc = optimizedSrc; // Load optimized version first
+        this.modalSrc = optimizedSrc; // Load optimized version first for fast display
         this.highResSrc = originalSrc;
         this.isHighResLoaded = false;
         this.showModal = true;
-        this.resetZoom();
         document.body.style.overflow = 'hidden';
 
-        // Load high-res in background
+        // Load high-res in background and swap when ready
         this.loadHighRes(originalSrc);
 
         // Preload adjacent images (±2 in each direction)
@@ -73,7 +73,6 @@ const imagesWithOptimized = await Promise.all(
       },
       closeModal() {
         this.showModal = false;
-        this.resetZoom();
         document.body.style.overflow = '';
         // Clear some cache to free memory (keep recent ones)
         if (this.preloadCache.size > 10) {
@@ -84,6 +83,7 @@ const imagesWithOptimized = await Promise.all(
         // Check if already cached
         if (this.highResCache.has(src)) {
           this.isHighResLoaded = true;
+          this.modalSrc = src; // Swap to high-res immediately if cached
           return;
         }
 
@@ -93,10 +93,7 @@ const imagesWithOptimized = await Promise.all(
           // Only update if this is still the current image
           if (this.highResSrc === src) {
             this.isHighResLoaded = true;
-            // If zoomed, swap to high-res immediately
-            if (this.isZoomed) {
-              this.modalSrc = src;
-            }
+            this.modalSrc = src; // Swap to high-res when loaded
           }
         };
         img.src = src;
@@ -116,7 +113,7 @@ const imagesWithOptimized = await Promise.all(
         indicesToPreload.forEach(idx => {
           const imgData = this.images[idx];
 
-          // Preload optimized version
+          // Preload optimized version first
           if (!this.preloadCache.has(imgData.optimized)) {
             const optimizedImg = new Image();
             optimizedImg.src = imgData.optimized;
@@ -137,13 +134,14 @@ const imagesWithOptimized = await Promise.all(
         if (this.currentIndex < this.images.length - 1) {
           this.currentIndex++;
           const imgData = this.images[this.currentIndex];
-          this.modalSrc = imgData.optimized;
+          this.modalSrc = imgData.optimized; // Load optimized first
           this.highResSrc = imgData.original;
           this.isHighResLoaded = this.highResCache.has(imgData.original);
-          this.resetZoom();
 
           if (!this.isHighResLoaded) {
             this.loadHighRes(imgData.original);
+          } else {
+            this.modalSrc = imgData.original; // Use high-res if already cached
           }
 
           this.preloadAdjacent();
@@ -153,129 +151,76 @@ const imagesWithOptimized = await Promise.all(
         if (this.currentIndex > 0) {
           this.currentIndex--;
           const imgData = this.images[this.currentIndex];
-          this.modalSrc = imgData.optimized;
+          this.modalSrc = imgData.optimized; // Load optimized first
           this.highResSrc = imgData.original;
           this.isHighResLoaded = this.highResCache.has(imgData.original);
-          this.resetZoom();
 
           if (!this.isHighResLoaded) {
             this.loadHighRes(imgData.original);
+          } else {
+            this.modalSrc = imgData.original; // Use high-res if already cached
           }
 
           this.preloadAdjacent();
         }
-      },
-      toggleZoom(event) {
-        if (this.isMobile) return;
-
-        if (!this.isZoomed) {
-          // Switch to high-res when zooming (if available)
-          if (this.isHighResLoaded) {
-            this.modalSrc = this.highResSrc;
-          }
-
-          this.zoomLevel = 2;
-          this.isZoomed = true;
-          // Center zoom on click position
-          const rect = event.target.getBoundingClientRect();
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const clickX = event.clientX - rect.left;
-          const clickY = event.clientY - rect.top;
-          this.panX = (centerX - clickX) * this.zoomLevel;
-          this.panY = (centerY - clickY) * this.zoomLevel;
-        } else {
-          this.resetZoom();
-        }
-      },
-      resetZoom() {
-        this.isZoomed = false;
-        this.zoomLevel = 1;
-        this.panX = 0;
-        this.panY = 0;
-      },
-      handleScroll(event) {
-        if (!this.isZoomed || this.isMobile) return;
-        
-        event.preventDefault();
-        
-        const scrollSpeed = 2;
-        const deltaX = event.deltaX * scrollSpeed;
-        const deltaY = event.deltaY * scrollSpeed;
-        
-        // Invert scroll direction for more natural panning
-        this.panX -= deltaX;
-        this.panY -= deltaY;
-        
-        // Optional: Add boundaries to prevent panning too far
-        const maxPan = 200;
-        this.panX = Math.max(-maxPan, Math.min(maxPan, this.panX));
-        this.panY = Math.max(-maxPan, Math.min(maxPan, this.panY));
       }
     }" 
     @keydown.escape.window="closeModal()"
     @keydown.arrow-right.window="nextImage()"
     @keydown.arrow-left.window="prevImage()"
   >
-    <div class="max-w-6xl mx-auto w-full px-4 mt-5 mb-5">
-      <a href="/" class="inline-block">
-        <Button>← Back to Home</Button>
-      </a>
+    <div class="max-w-6xl mx-auto w-full px-4 py-8">
+      <a href="/" class="text-gray-400 hover:text-gray-100 inline-block mb-8">← Back</a>
     </div>
 
     <!-- Mobile Gallery (single column) -->
-    <main class="md:hidden max-w-lg mx-auto w-full px-4 mb-5 space-y-4">
+    <main class="md:hidden max-w-lg mx-auto w-full px-4 mb-8 space-y-3">
       {
         imagesWithOptimized.map((imgData, index) => (
           <div
-            class="relative cursor-pointer overflow-hidden rounded-lg shadow-lg"
+            class="cursor-pointer"
             data-image-optimized={imgData.optimized}
             data-image-original={imgData.original}
             @click={`openModal('${imgData.optimized}', '${imgData.original}', ${index})`}
           >
-            <Image
-              src={imgData.img}
-              width="800"
+            <img
+              src={imgData.thumbnail}
               alt="Photo"
-              class="w-full h-auto object-cover transition-transform duration-200 active:scale-95"
+              class="w-full h-auto object-cover"
+              loading="lazy"
             />
-            <div class="absolute inset-0 bg-black bg-opacity-0 active:bg-opacity-10 transition-all duration-200"></div>
           </div>
         ))
       }
     </main>
 
     <!-- Desktop Gallery (grid) -->
-    <main class="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 max-w-6xl mx-auto w-full px-4 mb-5">
+    <main class="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 max-w-6xl mx-auto w-full px-4 mb-8">
       {
         imagesWithOptimized.map((imgData, index) => (
           <div
-            class="relative group cursor-pointer overflow-hidden"
+            class="cursor-pointer"
             data-image-optimized={imgData.optimized}
             data-image-original={imgData.original}
             @click={`openModal('${imgData.optimized}', '${imgData.original}', ${index})`}
           >
-            <Image
-              src={imgData.img}
-              width="600"
+            <img
+              src={imgData.thumbnail}
               alt="Photo"
-              class="w-full aspect-square object-cover rounded transition-transform duration-200 group-hover:scale-105"
+              class="w-full aspect-square object-cover"
+              loading="lazy"
             />
-            <div class="flex items-center justify-center absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
           </div>
         ))
       }
     </main>
 
     <!-- Enhanced Modal with Navigation -->
-    <div 
-      x-show="showModal" 
-      x-transition 
-      class="fixed inset-0 z-50 bg-black bg-opacity-95 flex items-center justify-center p-4"
+    <div
+      x-show="showModal"
+      x-cloak
+      x-transition
+      class="fixed inset-0 z-50 bg-black md:bg-opacity-95 flex items-center justify-center p-4 md:p-4 p-0"
       @click.self="closeModal()"
       @touchstart="startX = $event.touches[0].clientX"
       @touchend="
@@ -288,25 +233,14 @@ const imagesWithOptimized = await Promise.all(
       x-data="{ startX: 0, endX: 0 }"
     >
       <!-- Image Container with proper spacing for controls -->
-      <div class="relative w-full h-full flex items-center justify-center overflow-hidden">
-        <!-- Main image with zoom functionality -->
-        <img 
-          :src="modalSrc" 
-          class="max-w-full max-h-full object-contain transition-transform duration-300 ease-out select-none"
-          :class="{ 'cursor-zoom-in': !isZoomed && !isMobile, 'cursor-zoom-out': isZoomed && !isMobile }"
-          :style="`
-            max-height: calc(100vh - 8rem); 
-            transform: scale(${zoomLevel}) translate(${panX}px, ${panY}px);
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-          `"
-          @click="toggleZoom($event)"
-          @wheel="handleScroll($event)"
-          @dragstart.prevent
+      <div class="relative w-full h-full flex items-center justify-center overflow-auto">
+        <!-- Main image with native zoom support -->
+        <img
+          :src="modalSrc"
+          class="max-w-full max-h-full object-contain"
+          style="max-height: calc(100vh - 8rem);"
+          alt="Photo"
         />
-        
       </div>
       
       <!-- Mobile Controls (outside image container) -->
@@ -373,24 +307,17 @@ const imagesWithOptimized = await Promise.all(
         </svg>
       </button>
 
-      <!-- Desktop Counter and Zoom Info -->
+      <!-- Desktop Counter -->
       <div class="hidden md:block absolute top-4 left-4 bg-black bg-opacity-70 rounded-full px-4 py-2 text-white text-sm backdrop-blur-sm">
         <span x-text="currentIndex + 1"></span> / <span x-text="images.length"></span>
-        <span x-show="isZoomed" class="ml-2 text-xs opacity-75">• Zoomed</span>
         <span x-show="!isHighResLoaded" class="ml-2 text-xs opacity-75 flex items-center gap-1">
           •
           <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          Loading HD
+          Loading
         </span>
-        <span x-show="isHighResLoaded" class="ml-2 text-xs opacity-75">• HD Ready</span>
-      </div>
-      
-      <!-- Zoom Instructions (Desktop only) -->
-      <div x-show="!isZoomed && !isMobile" class="hidden md:block absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 rounded-full px-3 py-1 text-white text-xs backdrop-blur-sm opacity-75">
-        Click to zoom • Scroll to pan when zoomed
       </div>
     </div>
   </div>
