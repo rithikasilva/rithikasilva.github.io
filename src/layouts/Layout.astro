@@ -3,20 +3,18 @@ import { Icon } from 'astro-icon/components'
 
 interface Props {
   title: string;
-  description: string;
   slug?: string | undefined;
   frontmatter?: {
     file: string;
     url: string | undefined;
   } & {
     title: string;
-    description: string;
     pubDate: string;
     minutesRead: string;
   };
 }
 
-const { title, description, slug, frontmatter } = Astro.props;
+const { title, slug, frontmatter } = Astro.props;
 ---
 
 <!doctype html>
@@ -26,6 +24,7 @@ const { title, description, slug, frontmatter } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
     <link rel="preconnect" href="https://cdn.fontshare.com" />
+    <slot name="head" />
   </head>
   <body class="bg-darkslate-700 md:h-screen flex flex-col items-center relative">
     <div class="background-animation"></div>
@@ -72,6 +71,37 @@ const { title, description, slug, frontmatter } = Astro.props;
 
   b {
     font-weight: 700 !important;
+  }
+
+  .link-inline {
+    color: #f5f5f5;
+    text-decoration: underline;
+    text-decoration-color: #525252;
+    text-underline-offset: 4px;
+    transition: all 0.15s;
+  }
+
+  .link-inline:hover {
+    color: white;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+  }
+
+  .link-inline-plain {
+    color: #f5f5f5;
+    text-decoration: underline;
+    text-decoration-color: #525252;
+    text-decoration-style: dotted;
+    text-underline-offset: 4px;
+  }
+
+  .link-nav {
+    color: #f5f5f5;
+    transition: all 0.15s;
+  }
+
+  .link-nav:hover {
+    color: white;
+    font-weight: 600;
   }
 
   .background-animation {
