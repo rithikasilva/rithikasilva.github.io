@@ -1,0 +1,199 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+
+---
+
+<Layout title="Rithika Silva - Archive">
+  <div class="construction-tape" aria-hidden="true">
+    <div class="tape-edge tape-edge-top"></div>
+    <div class="tape-text">
+      <span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span><span>UNDER CONSTRUCTION</span>
+    </div>
+    <div class="tape-edge tape-edge-bottom"></div>
+  </div>
+  <main class="mt-20 text-white w-full max-w-3xl mx-auto px-6 sm:px-0 py-6">
+    <a href="/" class="text-gray-400 hover:text-gray-100 transition-all mb-8 inline-block">&larr; Back</a>
+    <h1 class="text-4xl font-bold mb-4">Archive</h1>
+    <p class="text-gray-300 text-sm mb-8">I'm reworking this space and migrating writing over. Some things may stay, some things may go.</p>
+
+
+    <input
+      id="blog-search"
+      type="text"
+      placeholder="Search posts..."
+      class="w-full bg-transparent border border-gray-700 rounded px-4 py-2 text-gray-300 placeholder-gray-600 mb-6 focus:outline-none focus:border-gray-400 transition-all"
+    />
+
+    <div id="tag-filters" class="flex flex-wrap gap-2 mb-8">
+      <button
+        data-tag="all"
+        data-active="true"
+        class="tag-btn px-3 py-1 rounded text-sm border transition-all text-white border-white"
+      >
+        All
+      </button>
+      {allTags.map((tag) => (
+        <button
+          data-tag={tag}
+          data-active="false"
+          class="tag-btn px-3 py-1 rounded text-sm border transition-all text-gray-400 border-gray-700 hover:border-gray-400 hover:text-gray-300"
+        >
+          {tag}
+        </button>
+      ))}
+    </div>
+
+    <ul id="post-list" class="space-y-8">
+      {posts.map((post) => (
+        <li
+          class="post-item"
+          data-title={post.data.title.toLowerCase()}
+          data-tags={post.data.tags.join(',')}
+          data-body={post.body.toLowerCase()}
+        >
+          <a href={`/archive/${post.slug}`} class="group block">
+            <span class="text-gray-500 text-sm">
+              {post.data.date.toLocaleDateString('en-CA', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </span>
+            <h2 class="text-gray-100 text-xl font-semibold mt-1 group-hover:text-white transition-all group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+              {post.data.title}
+            </h2>
+            {post.data.tags.length > 0 && (
+              <div class="flex gap-2 mt-2 flex-wrap">
+                {post.data.tags.map((tag) => (
+                  <span class="text-xs text-gray-600 border border-gray-700 rounded px-2 py-0.5">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p id="no-results" class="hidden text-gray-500 mt-8">No posts found.</p>
+  </main>
+</Layout>
+
+<script>
+  const searchInput = document.getElementById('blog-search') as HTMLInputElement;
+  const postItems = document.querySelectorAll<HTMLElement>('.post-item');
+  const tagButtons = document.querySelectorAll<HTMLButtonElement>('.tag-btn');
+  const noResults = document.getElementById('no-results')!;
+
+  let activeTag = 'all';
+  let searchQuery = '';
+
+  function setActiveButton(tag: string) {
+    tagButtons.forEach((btn) => {
+      const isActive = btn.dataset.tag === tag;
+      btn.dataset.active = isActive ? 'true' : 'false';
+      if (isActive) {
+        btn.classList.remove('text-gray-400', 'border-gray-700', 'hover:border-gray-400', 'hover:text-gray-300');
+        btn.classList.add('text-white', 'border-white');
+      } else {
+        btn.classList.remove('text-white', 'border-white');
+        btn.classList.add('text-gray-400', 'border-gray-700', 'hover:border-gray-400', 'hover:text-gray-300');
+      }
+    });
+  }
+
+  function applyFilters() {
+    let visible = 0;
+    postItems.forEach((item) => {
+      const title = item.dataset.title ?? '';
+      const tags = item.dataset.tags ?? '';
+      const body = item.dataset.body ?? '';
+      const matchesTag = activeTag === 'all' || tags.split(',').includes(activeTag);
+      const matchesSearch = searchQuery === '' || title.includes(searchQuery) || body.includes(searchQuery);
+      const show = matchesTag && matchesSearch;
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    noResults.classList.toggle('hidden', visible > 0);
+  }
+
+  searchInput.addEventListener('input', () => {
+    searchQuery = searchInput.value.trim().toLowerCase();
+    applyFilters();
+  });
+
+  tagButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeTag = btn.dataset.tag ?? 'all';
+      setActiveButton(activeTag);
+      applyFilters();
+    });
+  });
+
+  // Pre-activate tag from URL param
+  const params = new URLSearchParams(window.location.search);
+  const tagParam = params.get('tag');
+  if (tagParam) {
+    const match = [...tagButtons].find((b) => b.dataset.tag === tagParam);
+    if (match) {
+      activeTag = tagParam;
+      setActiveButton(activeTag);
+      applyFilters();
+    }
+  }
+</script>
+
+<style>
+  .construction-tape {
+    position: fixed;
+    top: 50px;
+    left: -100px;
+    right: -100px;
+    height: 52px;
+    background: #f5c518;
+    transform: rotate(5deg);
+    z-index: 50;
+    opacity: 0.95;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .tape-edge {
+    height: 10px;
+    flex-shrink: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      #1a1a1a 0px,
+      #1a1a1a 24px,
+      #f5c518 24px,
+      #f5c518 40px
+    );
+  }
+  .tape-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 0 16px;
+    overflow: hidden;
+  }
+  .tape-text span {
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: #1a1a1a;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+</style>

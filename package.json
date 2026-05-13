@@ -14,6 +14,8 @@
     "astro": "^4.11.5",
     "astro-icon": "^1.1.0",
     "motion": "^10.18.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
     "solid-js": "^1.8.18",
     "unocss": "^0.61.3"
   }

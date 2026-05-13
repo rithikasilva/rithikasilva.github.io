@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { LINKS } from "../lib/constants";
 ---
 
-<Layout title="Rithika Silva" description="Computer Science student and System Software Engineer">
+<Layout title="Rithika Silva">
   <main class="text-white min-h-screen flex items-center justify-center p-8">
     <div class="max-w-3xl mx-auto">
       <!-- Name -->
@@ -11,44 +11,25 @@ import { LINKS } from "../lib/constants";
 
       <!-- Bio -->
       <p class="text-1xl text-gray-300 mb-8 leading-relaxed">
-        I am a student studying <a class="text-gray-100 hover:text-white transition-all hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] underline decoration-gray-600 underline-offset-4" href="https://uwaterloo.ca/" target="_blank">Computer Science @ UWaterloo</a> and a System Software Engineer.
-        I enjoy working on systems-level code, performance engineering, and building tools that support complex infrastructure.
-        I have a particular interest in <span class="text-gray-100 underline decoration-gray-600 decoration-dotted underline-offset-4">combinatorics</span>, <span class="text-gray-100 underline decoration-gray-600 decoration-dotted underline-offset-4">mathematical optimization</span>, and <span class="text-gray-100 underline decoration-gray-600 decoration-dotted underline-offset-4">developer tooling</span>.
+        I <s>am</s> was a student at <a class="link-inline" href="https://uwaterloo.ca/" target="_blank">UWaterloo</a> studying Computer Science, with interests in <span class="link-inline-plain">combinatorics</span>, <span class="link-inline-plain">mathematical optimization</span>, and <span class="link-inline-plain">developer tooling</span>.
       </p>
 
-      <!-- Two Column Layout for Links and Work Experience -->
-      <div class="grid md:grid-cols-2 gap-12 md:gap-20">
-        <!-- Links and Contact -->
-        <div class="space-y-4">
-          <div>
-            <h2 class="text-gray-400 text-sm uppercase tracking-wide mb-2">Links</h2>
-            <div class="flex flex-wrap gap-x-4 gap-y-2 text-lg">
-              <a href="/gallery" class="text-gray-100 hover:text-white hover:font-semibold">Photography</a>
-              <a href="/projects" class="text-gray-100 hover:text-white hover:font-semibold">Projects</a>
-              <a href="/uses" class="text-gray-100 hover:text-white hover:font-semibold">Uses</a>
-              <a href="https://rithikasilva.ca/b.log-/" target="_blank" class="text-gray-100 hover:text-white hover:font-semibold">Blog</a>
-            </div>
-          </div>
-
-          <div>
-            <h2 class="text-gray-400 text-sm uppercase tracking-wide mb-2">Contact</h2>
-            <div class="flex flex-wrap gap-x-4 gap-y-2 text-lg">
-              <a href={LINKS.linkedin} target="_blank" class="text-gray-100 hover:text-white hover:font-semibold">LinkedIn</a>
-              <a href={LINKS.github} target="_blank" class="text-gray-100 hover:text-white hover:font-semibold">GitHub</a>
-            </div>
+      <!-- Links and Contact -->
+      <div class="space-y-4">
+        <div>
+          <h2 class="text-gray-400 text-sm uppercase tracking-wide mb-2">Links</h2>
+          <div class="flex flex-wrap gap-x-4 gap-y-2 text-lg">
+            <a href="/gallery" class="link-nav">Photography</a>
+            <a href="/archive" class="link-nav">Archive</a>
           </div>
         </div>
 
-        <!-- Work Experience -->
-        <div class="md:ml-auto md:max-w-md">
-          <h2 class="text-gray-400 text-sm uppercase tracking-wide mb-3">Experience</h2>
-          <ul class="list-disc list-inside text-gray-300 space-y-1">
-            <li>SWE Co-op @ <a class="text-gray-100 hover:text-white transition-all hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" href={LINKS.nvidia} target="_blank">NVIDIA</a></li>
-            <li>SWE Co-op @ <a class="text-gray-100 hover:text-white transition-all hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" href={LINKS.huawei} target="_blank">Huawei</a></li>
-            <li>SWE Co-op @ <a class="text-gray-100 hover:text-white transition-all hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" href={LINKS.ford} target="_blank">Ford</a></li>
-            <li>SWE Co-op @ <a class="text-gray-100 hover:text-white transition-all hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" href={LINKS.blackberry} target="_blank">BlackBerry</a></li>
-            <li>SWE Co-op @ <a class="text-gray-100 hover:text-white transition-all hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" href={LINKS.arctic_wolf} target="_blank">Arctic Wolf</a></li>
-          </ul>
+        <div>
+          <h2 class="text-gray-400 text-sm uppercase tracking-wide mb-2">Contact</h2>
+          <div class="flex flex-wrap gap-x-4 gap-y-2 text-lg">
+            <a href={LINKS.linkedin} target="_blank" class="link-nav">LinkedIn</a>
+            <a href={LINKS.github} target="_blank" class="link-nav">GitHub</a>
+          </div>
         </div>
       </div>
     </div>
