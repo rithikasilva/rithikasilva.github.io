@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('archive');
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
@@ -16,7 +16,7 @@ const { Content } = await post.render();
 
 <Layout title={`${post.data.title} — Rithika Silva`}>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" slot="head" />
-  <main class="mt-20 text-white w-full max-w-3xl mx-auto px-6 sm:px-0 py-6">
+  <main class="mt-20 text-white w-full max-w-3xl mx-auto px-0 sm:px-6 py-6">
     <a href="/archive" class="text-gray-400 hover:text-gray-100 transition-all mb-8 inline-block">&larr; Archive</a>
 
     <div class="mb-10">
