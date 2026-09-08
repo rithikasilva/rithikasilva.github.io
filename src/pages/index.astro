@@ -17,23 +17,14 @@ import { LINKS } from "../lib/constants";
         I'm a Software Engineer @ <span class="link-inline-plain">NVIDIA</span> and a <a class="link-inline" href="https://uwaterloo.ca/" target="_blank">UWaterloo</a> CS alum. My interests include <span class="link-inline-plain">combinatorics</span>, <span class="link-inline-plain">mathematical optimization</span>, and <span class="link-inline-plain">developer tooling</span>.
       </p>
 
-      <!-- Links and Contact -->
-      <div class="space-y-4">
-        <div>
-          <h2 class="text-gray-400 text-sm uppercase tracking-wide mb-2">Links</h2>
-          <div class="flex flex-wrap gap-x-4 gap-y-2 text-lg">
-            <a href="/gallery" class="link-nav">Photography</a>
-            <a href="/archive" class="link-nav">Archive</a>
-          </div>
-        </div>
-
-        <div>
-          <h2 class="text-gray-400 text-sm uppercase tracking-wide mb-2">Contact</h2>
-          <div class="flex flex-wrap gap-x-4 gap-y-2 text-lg">
-            <a href={LINKS.linkedin} target="_blank" class="link-nav">LinkedIn</a>
-            <a href={LINKS.github} target="_blank" class="link-nav">GitHub</a>
-          </div>
-        </div>
+      <div>
+        <h2 class="text-gray-400 text-sm uppercase tracking-wide mb-2">Links</h2>
+        <nav class="flex flex-wrap gap-x-4 gap-y-2 text-lg" aria-label="Main navigation">
+          <a href="/gallery" class="link-nav">Photography</a>
+          <a href="/archive" class="link-nav">Archive</a>
+          <a href={LINKS.linkedin} target="_blank" rel="noreferrer" class="link-nav">LinkedIn</a>
+          <a href={LINKS.github} target="_blank" rel="noreferrer" class="link-nav">GitHub</a>
+        </nav>
       </div>
     </div>
   </main>
