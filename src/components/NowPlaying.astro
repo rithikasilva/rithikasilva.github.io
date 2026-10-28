@@ -1,0 +1,29 @@
+---
+const serviceHost = "https://spotify.rithikasilva.workers.dev";
+---
+
+<p class="listening" id="listening" hidden>
+  <span>Listening</span><span aria-hidden="true"> · </span><a id="listening-track" target="_blank" rel="noreferrer"></a>
+</p>
+
+<script define:vars={{ serviceHost }}>
+  const listening = document.querySelector("#listening");
+  const track = document.querySelector("#listening-track");
+
+  fetch(`${serviceHost}/get-now-playing`)
+    .then((response) => response.ok ? response.json() : Promise.reject())
+    .then((data) => {
+      if (!data.is_playing || !data.item || data.currently_playing_type === "episode") return;
+      const url = data.item.external_urls?.spotify;
+      if (!url || !data.item.name || !data.item.artists?.length) return;
+      track.textContent = `${data.item.name} — ${data.item.artists.map((artist) => artist.name).join(", ")}`;
+      track.href = url;
+      listening.hidden = false;
+    })
+    .catch(() => {});
+</script>
+
+<style>
+  .listening { margin: 1rem 0 0; color: #686e62; font-size: .9rem; }
+  .listening a, .listening a:visited { color: inherit; text-decoration-color: #d2d6cb; }
+</style>

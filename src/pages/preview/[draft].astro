@@ -1,0 +1,20 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Draft from '../../../drafts/code-review-in-the-age-of-agents.md';
+
+// Drafts are available in the local dev server only, never in a production build.
+export function getStaticPaths() {
+  return import.meta.env.DEV
+    ? [{ params: { draft: 'code-review-in-the-age-of-agents' } }]
+    : [];
+}
+---
+
+<Layout title="Draft: Code Review in the Age of Agents — Rithika Silva">
+  <meta name="robots" content="noindex, nofollow" slot="head" />
+  <main>
+    <a href="/archive">&larr; Archive</a>
+    <p>Unpublished draft preview</p>
+    <article class="prose-blog"><Draft /></article>
+  </main>
+</Layout>

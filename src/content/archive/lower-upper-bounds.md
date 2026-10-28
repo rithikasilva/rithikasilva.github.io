@@ -17,7 +17,7 @@ After some back and forth of modify/adding/removing parts of $f(I)$ to gain the 
 4. Add $n-1$ entries of $-2K$ to $f(I)$ where $n$ is the length of $I$.
 5. Add $-2K + 1$ to $f(I)$.
 
-Using this definition of $f(I)$ I was able to eliminate some possible structures for a subset of $f(I)$ that adds to $1$ (which I leave the elimination as an exercise to the reader 🙃) to be left with the only possible structure(s) being of the form:
+Using this definition of $f(I)$ I was able to eliminate some possible structures for a subset of $f(I)$ that adds to $1$ (I’ll leave that bit as an exercise to the reader) to be left with the only possible structure(s) being of the form:
 
 $$
 2(x_e + ... + x_f) + j(2K) + c(-2K) + (-2K + 1) = 1

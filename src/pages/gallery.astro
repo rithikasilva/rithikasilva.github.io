@@ -1,324 +1,181 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import Layout from '../layouts/Layout.astro';
+import { photoDescriptions } from '../lib/photo-descriptions';
 
-const imageFiles = await Astro.glob("../../public/static/photos/*");
-const sortedImages = [...imageFiles].sort((a, b) => b.default.src.localeCompare(a.default.src));
-
-// Generate optimized versions at build time
-const imagesWithOptimized = await Promise.all(
-  sortedImages.map(async (img) => {
-    // Small thumbnail for grid (fast loading)
-    const thumbnail = await getImage({
-      src: img.default,
-      width: 600,
-      format: 'jpg',
-      quality: 80
-    });
-    // Medium preview for modal (1920px width)
-    const optimized = await getImage({
-      src: img.default,
-      width: 1920,
-      format: 'jpg',
-      quality: 85
-    });
+const files = import.meta.glob<{ default: ImageMetadata }>('../../public/static/photos/*.{jpg,jpeg,JPG}', { eager: true });
+const photos = await Promise.all(
+  Object.entries(files).sort(([a], [b]) => b.localeCompare(a)).map(async ([path, image]) => {
+    const source = image.default;
+    const widths = [...new Set([400, 600, 960].map((width) => Math.min(width, source.width)))];
+    const thumbnails = await Promise.all(widths.map((width) => getImage({ src: source, width, format: 'webp', quality: 80 })));
+    const preview = await getImage({ src: source, width: Math.min(1920, source.width), format: 'webp', quality: 85 });
+    const filename = path.split('/').pop()!;
     return {
-      original: img.default.src,
-      optimized: optimized.src,
-      thumbnail: thumbnail.src
+      alt: photoDescriptions[filename] ?? 'Photograph by Rithika Silva',
+      original: `/static/photos/${filename}`,
+      thumbnail: thumbnails[1] ?? thumbnails[0],
+      srcset: thumbnails.map((image, i) => `${image.src} ${widths[i]}w`).join(', '),
+      preview: preview.src,
+      width: source.width,
+      height: source.height,
     };
   })
 );
 ---
 
-<Layout title="Rithika Silva">
-  <style>
-    [x-cloak] { display: none !important; }
-  </style>
-  <script src="https://unpkg.com/alpinejs" defer></script>
-
-  <div
-    x-data="{
-      showModal: false,
-      modalSrc: '',
-      highResSrc: '',
-      isHighResLoaded: false,
-      currentIndex: 0,
-      images: [],
-      preloadCache: new Map(),
-      highResCache: new Map(),
-      init() {
-        // Get image data with both optimized and original paths
-        const imageElements = Array.from(document.querySelectorAll('[data-image-optimized]'))
-          .filter(el => !el.closest('.hidden'));
-
-        this.images = imageElements.map(el => ({
-          optimized: el.dataset.imageOptimized,
-          original: el.dataset.imageOriginal
-        }));
-      },
-      openModal(optimizedSrc, originalSrc, index) {
-        this.currentIndex = index;
-        this.modalSrc = optimizedSrc; // Load optimized version first for fast display
-        this.highResSrc = originalSrc;
-        this.isHighResLoaded = false;
-        this.showModal = true;
-        document.body.style.overflow = 'hidden';
-
-        // Load high-res in background and swap when ready
-        this.loadHighRes(originalSrc);
-
-        // Preload adjacent images (±2 in each direction)
-        this.preloadAdjacent();
-      },
-      closeModal() {
-        this.showModal = false;
-        document.body.style.overflow = '';
-        // Clear some cache to free memory (keep recent ones)
-        if (this.preloadCache.size > 10) {
-          this.preloadCache.clear();
-        }
-      },
-      loadHighRes(src) {
-        // Check if already cached
-        if (this.highResCache.has(src)) {
-          this.isHighResLoaded = true;
-          this.modalSrc = src; // Swap to high-res immediately if cached
-          return;
-        }
-
-        const img = new Image();
-        img.onload = () => {
-          this.highResCache.set(src, true);
-          // Only update if this is still the current image
-          if (this.highResSrc === src) {
-            this.isHighResLoaded = true;
-            this.modalSrc = src; // Swap to high-res when loaded
-          }
-        };
-        img.src = src;
-      },
-      preloadAdjacent() {
-        const indicesToPreload = [];
-
-        // Preload ±2 images
-        for (let offset = -2; offset <= 2; offset++) {
-          if (offset === 0) continue; // Skip current image
-          const idx = this.currentIndex + offset;
-          if (idx >= 0 && idx < this.images.length) {
-            indicesToPreload.push(idx);
-          }
-        }
-
-        indicesToPreload.forEach(idx => {
-          const imgData = this.images[idx];
-
-          // Preload optimized version first
-          if (!this.preloadCache.has(imgData.optimized)) {
-            const optimizedImg = new Image();
-            optimizedImg.src = imgData.optimized;
-            this.preloadCache.set(imgData.optimized, true);
-          }
-
-          // Preload high-res version
-          if (!this.highResCache.has(imgData.original)) {
-            const highResImg = new Image();
-            highResImg.src = imgData.original;
-            highResImg.onload = () => {
-              this.highResCache.set(imgData.original, true);
-            };
-          }
-        });
-      },
-      nextImage() {
-        if (this.currentIndex < this.images.length - 1) {
-          this.currentIndex++;
-          const imgData = this.images[this.currentIndex];
-          this.modalSrc = imgData.optimized; // Load optimized first
-          this.highResSrc = imgData.original;
-          this.isHighResLoaded = this.highResCache.has(imgData.original);
-
-          if (!this.isHighResLoaded) {
-            this.loadHighRes(imgData.original);
-          } else {
-            this.modalSrc = imgData.original; // Use high-res if already cached
-          }
-
-          this.preloadAdjacent();
-        }
-      },
-      prevImage() {
-        if (this.currentIndex > 0) {
-          this.currentIndex--;
-          const imgData = this.images[this.currentIndex];
-          this.modalSrc = imgData.optimized; // Load optimized first
-          this.highResSrc = imgData.original;
-          this.isHighResLoaded = this.highResCache.has(imgData.original);
-
-          if (!this.isHighResLoaded) {
-            this.loadHighRes(imgData.original);
-          } else {
-            this.modalSrc = imgData.original; // Use high-res if already cached
-          }
-
-          this.preloadAdjacent();
-        }
-      }
-    }" 
-    @keydown.escape.window="closeModal()"
-    @keydown.arrow-right.window="nextImage()"
-    @keydown.arrow-left.window="prevImage()"
-  >
-    <div class="max-w-6xl mx-auto w-full px-4 py-8">
-      <a href="/" class="text-gray-400 hover:text-gray-100 inline-block mb-8">← Back</a>
-    </div>
-
-    <!-- Mobile Gallery (single column) -->
-    <main class="md:hidden max-w-lg mx-auto w-full px-4 mb-8 space-y-3">
-      {
-        imagesWithOptimized.map((imgData, index) => (
-          <div
-            class="cursor-pointer"
-            data-image-optimized={imgData.optimized}
-            data-image-original={imgData.original}
-            @click={`openModal('${imgData.optimized}', '${imgData.original}', ${index})`}
-          >
-            <img
-              src={imgData.thumbnail}
-              alt="Photo"
-              class="w-full h-auto object-cover"
-              loading="lazy"
-            />
-          </div>
-        ))
-      }
-    </main>
-
-    <!-- Desktop Gallery (grid) -->
-    <main class="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 max-w-6xl mx-auto w-full px-4 mb-8">
-      {
-        imagesWithOptimized.map((imgData, index) => (
-          <div
-            class="cursor-pointer"
-            data-image-optimized={imgData.optimized}
-            data-image-original={imgData.original}
-            @click={`openModal('${imgData.optimized}', '${imgData.original}', ${index})`}
-          >
-            <img
-              src={imgData.thumbnail}
-              alt="Photo"
-              class="w-full aspect-square object-cover"
-              loading="lazy"
-            />
-          </div>
-        ))
-      }
-    </main>
-
-    <!-- Enhanced Modal with Navigation -->
-    <div
-      x-show="showModal"
-      x-cloak
-      x-transition
-      class="fixed inset-0 z-50 bg-black md:bg-opacity-95 flex items-center justify-center p-4 md:p-4 p-0"
-      @click.self="closeModal()"
-      @touchstart="startX = $event.touches[0].clientX"
-      @touchend="
-        endX = $event.changedTouches[0].clientX;
-        if (Math.abs(endX - startX) > 50) {
-          if (endX < startX) nextImage();
-          else prevImage();
-        }
-      "
-      x-data="{ startX: 0, endX: 0 }"
-    >
-      <!-- Image Container with proper spacing for controls -->
-      <div class="relative w-full h-full flex items-center justify-center overflow-auto">
-        <!-- Main image with native zoom support -->
-        <img
-          :src="modalSrc"
-          class="max-w-full max-h-full object-contain"
-          style="max-height: calc(100vh - 8rem);"
-          alt="Photo"
-        />
-      </div>
-      
-      <!-- Mobile Controls (outside image container) -->
-      <div class="md:hidden absolute inset-x-4 bottom-6 flex justify-between items-center text-white z-10">
+<Layout wide title="Photography — Rithika Silva" description="Photographs by Rithika Silva: city streets, architecture, landscapes, and everyday details.">
+  <main>
+    <p><a href="/">← Home</a></p>
+    <h1 class="visually-hidden">Photography</h1>
+    <div class="photo-grid">
+      {photos.map((photo, index) => (
         <button
-          @click="prevImage()"
-          :disabled="currentIndex === 0"
-          class="bg-black bg-opacity-70 rounded-full p-3 disabled:opacity-30 backdrop-blur-sm"
+          type="button"
+          class="photo-trigger"
+          aria-label={`View photo ${index + 1}: ${photo.alt}`}
+          aria-haspopup="dialog"
+          data-preview={photo.preview}
+          data-original={photo.original}
         >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
+          <img
+            src={photo.thumbnail.src}
+            srcset={photo.srcset}
+            sizes="(min-width: 1280px) 271px, (min-width: 1024px) 365px, (min-width: 768px) calc((100vw - 44px) / 2), calc(100vw - 32px)"
+            width={photo.width}
+            height={photo.height}
+            alt={photo.alt}
+            loading={index < 2 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
         </button>
-
-        <div class="bg-black bg-opacity-70 rounded-full px-4 py-2 text-sm backdrop-blur-sm flex items-center gap-2">
-          <span><span x-text="currentIndex + 1"></span> / <span x-text="images.length"></span></span>
-          <span x-show="!isHighResLoaded" class="flex items-center">
-            <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-          </span>
-        </div>
-
-        <button
-          @click="nextImage()"
-          :disabled="currentIndex === images.length - 1"
-          class="bg-black bg-opacity-70 rounded-full p-3 disabled:opacity-30 backdrop-blur-sm"
-        >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
-
-      <!-- Desktop Navigation -->
-      <button 
-        @click="prevImage()"
-        :disabled="currentIndex === 0"
-        class="hidden md:block absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 rounded-full p-3 text-white disabled:opacity-30 transition-all"
-      >
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-
-      <button 
-        @click="nextImage()"
-        :disabled="currentIndex === images.length - 1"
-        class="hidden md:block absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 rounded-full p-3 text-white disabled:opacity-30 transition-all"
-      >
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
-      <!-- Close Button -->
-      <button 
-        class="absolute top-4 right-4 bg-black bg-opacity-50 hover:bg-opacity-70 rounded-full p-2 text-white transition-all"
-        @click="closeModal()"
-      >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
-      <!-- Desktop Counter -->
-      <div class="hidden md:block absolute top-4 left-4 bg-black bg-opacity-70 rounded-full px-4 py-2 text-white text-sm backdrop-blur-sm">
-        <span x-text="currentIndex + 1"></span> / <span x-text="images.length"></span>
-        <span x-show="!isHighResLoaded" class="ml-2 text-xs opacity-75 flex items-center gap-1">
-          •
-          <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          Loading
-        </span>
-      </div>
+      ))}
     </div>
-  </div>
+  </main>
+
+  <dialog id="photo-viewer" aria-label="Photo viewer">
+    <div class="viewer-content">
+      <p id="photo-status" class="viewer-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <button type="button" id="close-photo" class="viewer-control close" aria-label="Close photo viewer" autofocus>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+      </button>
+      <button type="button" id="previous-photo" class="viewer-control previous" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6" /></svg>
+      </button>
+      <figure>
+        <img id="viewer-image" alt="" />
+      </figure>
+      <button type="button" id="next-photo" class="viewer-control next" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+      </button>
+      <a id="original-photo" class="link-nav original" target="_blank" rel="noreferrer">Open original ↗</a>
+    </div>
+  </dialog>
 </Layout>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('#photo-viewer')!;
+  const triggers = [...document.querySelectorAll<HTMLButtonElement>('.photo-trigger')];
+  const image = document.querySelector<HTMLImageElement>('#viewer-image')!;
+  const previous = document.querySelector<HTMLButtonElement>('#previous-photo')!;
+  const next = document.querySelector<HTMLButtonElement>('#next-photo')!;
+  const close = document.querySelector<HTMLButtonElement>('#close-photo')!;
+  const original = document.querySelector<HTMLAnchorElement>('#original-photo')!;
+  const status = document.querySelector<HTMLElement>('#photo-status')!;
+  let current = 0;
+  let opener: HTMLButtonElement | undefined;
+  let previousOverflow = '';
+
+  function display(index: number) {
+    current = index;
+    const trigger = triggers[index];
+    image.src = trigger.dataset.preview!;
+    image.alt = trigger.querySelector('img')!.alt;
+    original.href = trigger.dataset.original!;
+    status.textContent = `Photo ${index + 1} of ${triggers.length}`;
+    previous.disabled = index === 0;
+    next.disabled = index === triggers.length - 1;
+    // Keep focus usable when navigating onto a disabled boundary control.
+    if ((previous.disabled && document.activeElement === previous) || (next.disabled && document.activeElement === next)) close.focus();
+  }
+
+  triggers.forEach((trigger, index) => {
+    trigger.addEventListener('click', () => {
+      opener = trigger;
+      display(index);
+      previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      dialog.showModal();
+    });
+  });
+  close.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => {
+    document.body.style.overflow = previousOverflow;
+    opener?.focus({ preventScroll: true });
+    image.removeAttribute('src');
+  });
+  previous.addEventListener('click', () => { if (current > 0) display(current - 1); });
+  next.addEventListener('click', () => { if (current < triggers.length - 1) display(current + 1); });
+  dialog.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab') {
+      const controls = [close, previous, next, original].filter((control) => !(control instanceof HTMLButtonElement && control.disabled));
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+    if (event.key === 'ArrowRight' && current < triggers.length - 1) { event.preventDefault(); display(current + 1); }
+    if (event.key === 'ArrowLeft' && current > 0) { event.preventDefault(); display(current - 1); }
+  });
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog || event.target === dialog.querySelector('.viewer-content')) dialog.close();
+  });
+  let touchStart: { x: number; y: number } | undefined;
+  image.addEventListener('touchstart', (event) => {
+    if (event.touches.length !== 1) { touchStart = undefined; return; }
+    touchStart = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+  }, { passive: true });
+  image.addEventListener('touchend', (event) => {
+    if (!touchStart) return;
+    const dx = event.changedTouches[0].clientX - touchStart.x;
+    const dy = event.changedTouches[0].clientY - touchStart.y;
+    touchStart = undefined;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0 && current < triggers.length - 1) display(current + 1);
+    if (dx > 0 && current > 0) display(current - 1);
+  }, { passive: true });
+</script>
+
+<style>
+  .photo-grid { display: grid; gap: .75rem; margin-top: 2rem; }
+  .photo-trigger { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; }
+  .photo-trigger img { display: block; width: 100%; height: auto; }
+  @media (min-width: 768px) {
+    .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .photo-trigger img { aspect-ratio: 1; object-fit: cover; }
+  }
+  @media (min-width: 1024px) { .photo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1280px) { .photo-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  dialog { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; color: #f5f5f5; background: rgb(0 0 0 / .96); }
+  dialog::backdrop { background: #000; }
+  dialog :focus-visible { outline-color: #fff; }
+  .viewer-content { position: relative; display: flex; align-items: center; justify-content: center; height: 100%; padding: 4rem 4.5rem; }
+  figure { margin: 0; max-width: 100%; text-align: center; }
+  #viewer-image { display: block; max-width: 100%; max-height: calc(100dvh - 8rem); width: auto; height: auto; margin: auto; object-fit: contain; }
+  .viewer-control { display: grid; place-items: center; padding: 0; position: absolute; width: 44px; height: 44px; border-radius: 50%; background: #171717; color: white; border: 1px solid #525252; cursor: pointer; font-size: 2rem; line-height: 1; }
+  .viewer-control svg { display: block; width: 24px; height: 24px; }
+  .close svg { width: 20px; height: 20px; }
+  .viewer-control:disabled { opacity: .3; cursor: default; }
+  .close { top: 1rem; right: 1rem; font-size: 1.25rem; }
+  .previous { left: 1rem; }
+  .next { right: 1rem; }
+  .viewer-status { position: absolute; top: 1.5rem; left: 1rem; margin: 0; font-size: .875rem; }
+  .original, .original:visited { color: #fff; }
+  .original { position: absolute; bottom: 1.5rem; font-size: .875rem; }
+  @media (max-width: 767px) {
+    .viewer-content { padding: 4.5rem 1rem 7rem; }
+    #viewer-image { max-height: calc(100dvh - 12rem); }
+    .previous, .next { bottom: 1rem; }
+  }
+</style>

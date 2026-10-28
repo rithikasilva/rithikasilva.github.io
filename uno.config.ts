@@ -1,9 +1,9 @@
 // uno.config.ts
-import { defineConfig, presetUno, presetWebFonts } from "unocss";
+import { defineConfig, presetUno } from "unocss";
 
 export default defineConfig({
   content: {
-    filesystem: ["**/*.{html,js,ts,jsx,tsx,astro}"],
+    filesystem: ["src/**/*.{html,js,ts,jsx,tsx,astro,md}"],
   },
   theme: {
     boxShadow: {
@@ -11,7 +11,7 @@ export default defineConfig({
       "custom-hover": `1px 1px 0`,
     },
     fontFamily: {
-      sans: ["CabinetGrotesk", "Satoshi"],
+      sans: ["Satoshi", "sans-serif"],
     },
     gridTemplateRows: {
       "auto-250": "repeat(auto-fill, 250px)",
@@ -61,12 +61,6 @@ export default defineConfig({
   },
   presets: [
     presetUno(),
-    presetWebFonts({
-      provider: "fontshare",
-      fonts: {
-        sans: ["Cabinet Grotesk", "Satoshi"],
-        serif: "Zodiak",
-      },
-    }),
+
   ],
 });

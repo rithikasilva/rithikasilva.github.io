@@ -8,6 +8,9 @@ node_modules/
 # logs
 npm-debug.log*
 
+# local secrets
+.env
+
 # macOS files
 .DS_Store
 .DS_Store?

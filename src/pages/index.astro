@@ -1,31 +1,30 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import NowPlaying from "../components/NowPlaying.astro";
 import { LINKS } from "../lib/constants";
 ---
 
 <Layout title="Rithika Silva">
-  <main class="text-white min-h-screen flex items-center justify-center p-8">
-    <div class="max-w-3xl mx-auto">
-      <!-- Name -->
-      <h1 class="text-5xl md:text-6xl font-bold mb-6">
-        Hi! I'm Rithika.
-        <span class="visually-hidden">Rithika uses he/him pronouns.</span>
-      </h1>
-
-      <!-- Bio -->
-      <p class="text-xl text-gray-300 mb-8 leading-relaxed">
-        I'm a Software Engineer @ <span class="link-inline-plain">NVIDIA</span> and a <a class="link-inline" href="https://uwaterloo.ca/" target="_blank">UWaterloo</a> CS alum. My interests include <span class="link-inline-plain">combinatorics</span>, <span class="link-inline-plain">mathematical optimization</span>, and <span class="link-inline-plain">developer tooling</span>.
-      </p>
-
-      <div>
-        <h2 class="text-gray-400 text-sm uppercase tracking-wide mb-2">Links</h2>
-        <nav class="flex flex-wrap gap-x-4 gap-y-2 text-lg" aria-label="Main navigation">
-          <a href="/gallery" class="link-nav">Photography</a>
-          <a href="/archive" class="link-nav">Archive</a>
-          <a href={LINKS.linkedin} target="_blank" rel="noreferrer" class="link-nav">LinkedIn</a>
-          <a href={LINKS.github} target="_blank" rel="noreferrer" class="link-nav">GitHub</a>
-        </nav>
-      </div>
-    </div>
+  <main class="home">
+    <h1>Rithika Silva<span class="visually-hidden"> (he/him)</span></h1>
+    <p class="intro">System Software Engineer at <a href={LINKS.nvidia_av}>NVIDIA</a>. UWaterloo CS alum.</p>
+    <ul class="interests" aria-label="Interests">
+      <li><span aria-hidden="true">#</span>systems-programming</li>
+      <li><span aria-hidden="true">#</span>performance-optimization</li>
+      <li><span aria-hidden="true">#</span>collaborative-agent-systems</li>
+      <li><span aria-hidden="true">#</span>dev-efficiency</li>
+      <li><span aria-hidden="true">#</span>combinatorics</li>
+      <li><span aria-hidden="true">#</span>graph-theory</li>
+      <li><span aria-hidden="true">#</span>mathematical-optimization</li>
+    </ul>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="/work">Projects &amp; Contributions</a></li>
+        <li><a href="/archive">Writing</a></li>
+        <li><a href="/gallery">Photography</a></li>
+      </ul>
+    </nav>
+    <p class="profiles"><a href={LINKS.github}>GitHub</a><a href={LINKS.linkedin}>LinkedIn</a></p>
+    <NowPlaying />
   </main>
 </Layout>
